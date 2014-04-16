@@ -1,10 +1,11 @@
 package data;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class PCB {
 	enum Type{
-		RUNNING, READY, WAITING
+		READY, WAITING
 	}
 	public class Status{
 		Type type = Type.WAITING;
@@ -20,7 +21,7 @@ public class PCB {
 		}
 	}
 	private String pid;
-	private LinkedList<RCB> RList;
+	private LinkedList<RCB> resourceList;
 	private Status status;
 	private CreationTree creationTree;
 	private int priority;
@@ -30,8 +31,23 @@ public class PCB {
 		this.priority = priority;
 		this.status = new Status();
 		this.creationTree = new CreationTree();
+		this.resourceList = new LinkedList<RCB>();
 	}
-
+	
+	public RCB getRCB(String rid){
+		Iterator<RCB> it = this.resourceList.iterator();
+		while(it.hasNext()){
+			RCB rcb = it.next();
+			if(rcb.getRid().equals(rid))
+				return rcb;
+		}
+		return null;
+	}
+	
+	public String toString(){
+		return this.pid;
+	}
+	
 	public String getPid() {
 		return pid;
 	}
@@ -40,12 +56,12 @@ public class PCB {
 		this.pid = pid;
 	}
 
-	public LinkedList<RCB> getRList() {
-		return RList;
+	public LinkedList<RCB> getResourceList() {
+		return resourceList;
 	}
 
 	public void setRList(LinkedList<RCB> rList) {
-		RList = rList;
+		resourceList = rList;
 	}
 
 	public Status getStatus() {

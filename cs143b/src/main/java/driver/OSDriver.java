@@ -17,8 +17,23 @@ public class OSDriver {
 			// process the line.
 			String[] tokens = line.split(" ");
 			String command = tokens[0];
-			if (command.equals("cr")) {
+			if (command.equals("init")) {
+				prManager.init();
+			} else if (command.equals("cr")) {
 				prManager.createProcess(tokens[1], Integer.parseInt(tokens[2]));
+			} else if(command.equals("de")){ 
+				prManager.destroyProcess(tokens[1]);
+				prManager.printCurrentRunningProcess();
+			} else if(command.equals("to")){ 
+				prManager.timeOut();
+			} else if(command.equals("req")){
+				prManager.requestResource(tokens[1]);
+			} else if(command.equals("rel")){
+				prManager.releaseResource(tokens[1]);
+			} else if(command.equals("rio")){
+				prManager.requestIO();
+			} else if(command.equals("ioc")){
+				prManager.IOCompletion();
 			}
 		}
 		br.close();

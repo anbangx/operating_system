@@ -1,6 +1,7 @@
 package data;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class ReadyList {
@@ -23,5 +24,36 @@ public class ReadyList {
 			highest = hM.get(0).getFirst();
 		}
 		return highest;
+	}
+	
+	public PCB get(String pid){
+		for(int i = 2; i >= 0; i--){
+			Iterator<PCB> it = hM.get(i).iterator();
+			while(it.hasNext()){
+				PCB pcb = it.next();
+				if(pcb.getPid().equals(pid)){
+					return pcb;
+				}
+			}
+		}
+		return null;
+	}
+	
+	public void insert(PCB pcb){
+		int priority = pcb.getPriority();
+		this.hM.get(priority).add(pcb);
+	}
+	
+	public void remove(PCB pcb){
+		int priority = pcb.getPriority();
+		this.hM.get(priority).remove(pcb);
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Priority-2: " + hM.get(2).toString() + "\n");
+		sb.append("Priority-1: " + hM.get(1).toString() + "\n");
+		sb.append("Priority-0: " + hM.get(0).toString());
+		return sb.toString();
 	}
 }
