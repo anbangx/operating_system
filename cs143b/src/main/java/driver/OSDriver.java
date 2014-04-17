@@ -23,7 +23,6 @@ public class OSDriver {
 				prManager.createProcess(tokens[1], Integer.parseInt(tokens[2]));
 			} else if(command.equals("de")){ 
 				prManager.destroyProcess(tokens[1]);
-				prManager.printCurrentRunningProcess();
 			} else if(command.equals("to")){ 
 				prManager.timeOut();
 			} else if(command.equals("req")){
@@ -34,7 +33,10 @@ public class OSDriver {
 				prManager.requestIO();
 			} else if(command.equals("ioc")){
 				prManager.IOCompletion();
+			} else if(command.equals("lsp")){
+				prManager.listAllProcessesAndStatus();
 			}
+			prManager.printCurrentRunningProcess();
 		}
 		br.close();
 	}

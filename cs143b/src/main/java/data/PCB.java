@@ -5,10 +5,10 @@ import java.util.LinkedList;
 
 public class PCB {
 	enum Type{
-		READY, WAITING
+		RUNNING, READY, WAITING
 	}
 	public class Status{
-		Type type = Type.WAITING;
+		Type type = Type.READY;
 		ReadyList RL = null;
 	}
 	class CreationTree{
@@ -45,7 +45,7 @@ public class PCB {
 	}
 	
 	public String toString(){
-		return this.pid;
+		return this.pid + " " + this.status.type;
 	}
 	
 	public String getPid() {

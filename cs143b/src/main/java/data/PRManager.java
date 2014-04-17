@@ -46,7 +46,7 @@ public class PRManager {
 		// 4. reschedule
 		this.scheduler();
 		
-		System.out.println(RL.toString());
+//		System.out.println(RL.toString());
 	}
 	
 	public void destroyProcess(String pid){
@@ -80,7 +80,7 @@ public class PRManager {
 			scheduler();
 		}
 		
-		System.out.println("Current ResourceList: " + this.allResources);
+//		System.out.println("Current ResourceList: " + this.allResources);
 	}
 	
 	public void releaseResource(String rid){
@@ -98,7 +98,7 @@ public class PRManager {
 			scheduler();
 		}
 		
-		System.out.println("Current ResourceList: " + this.allResources);
+//		System.out.println("Current ResourceList: " + this.allResources);
 	}
 	
 	public RCB getRCB(String rid){
@@ -146,22 +146,43 @@ public class PRManager {
 		PCB highest = RL.getPCBWithHighPriority();
 		
 		// 2. under some conditions, do context switch
-		if(this.runningProcess != highest)
-//				this.runningProcess.getPriority() < highest.getPriority()
-//				|| this.runningProcess.getStatus().type != PCB.Type.RUNNING
-//				|| this.runningProcess == null)
+		if(this.runningProcess.getPriority() < highest.getPriority()	//(1) create/release
+				|| this.runningProcess.getStatus().type != PCB.Type.RUNNING	//(2) request/time-out
+				|| this.runningProcess == null)	//(3) destroy
 			preempt(highest);
 	}
 	
 	public void preempt(PCB highest){
-//		if(this.runningProcess != null && this.runningProcess.getStatus().type == PCB.Type.RUNNING){
-//			this.runningProcess.getStatus().type = PCB.Type.READY;
-//		}
+		//(1)
+		if(this.runningProcess != null && this.runningProcess.getStatus().type == PCB.Type.RUNNING){
+			this.runningProcess.getStatus().type = PCB.Type.READY;
+			this.RL.insert(this.runningProcess);
+		}
+		highest.getStatus().type = PCB.Type.RUNNING;
 		this.runningProcess = highest;
-		System.out.println("Process " + highest.getPid() + " is running");
+		this.RL.remove(highest);
+//		System.out.println("Process " + highest.getPid() + " is running");
 	}
 	
 	public void printCurrentRunningProcess(){
-		System.out.println("Process " + this.runningProcess + " is running");
+		System.out.println("Process " + this.runningProcess.getPid() + " is running");
+	}
+	
+	public void listAllProcessesAndStatus(){
+		System.out.println("The ready list is: \n" + this.RL);
+		printWaitingList();
+	}
+	
+	public void printWaitingList(){
+		System.out.println("The waiting list is :");
+		for(RCB rcb : this.allResources){
+			if(!rcb.getWaitingList().isEmpty())
+				System.out.print(rcb.getWaitingList() + "	");
+		}
+		System.out.println();
+	}
+	
+	public void listAllResourcesAndStatus(){
+		
 	}
 }
