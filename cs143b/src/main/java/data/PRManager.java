@@ -36,24 +36,36 @@ public class PRManager {
 		if (command.equals("init")) {
 			init();
 		} else if (command.equals("cr")) {
+			if(tokens.length != 3)
+				System.out.println("Please provide correct format, ex. cr A 1");
 			createProcess(tokens[1], Integer.parseInt(tokens[2]));
 		} else if (command.equals("de")) {
+			if(tokens.length != 2)
+				System.out.println("Please provide correct format, ex. de B");
 			destroyProcess(tokens[1]);
 		} else if (command.equals("to")) {
 			timeOut();
 		} else if (command.equals("req")) {
+			if(tokens.length != 2 && tokens.length != 3)
+				System.out.println("Please provide correct format, ex. req R1 or req R1 2");
 			if(tokens.length == 2)
 				requestResource(tokens[1], 1);
 			else
 				requestResource(tokens[1], Integer.parseInt(tokens[2]));
 		} else if (command.equals("rel")) {
+			if(tokens.length != 2 && tokens.length != 3)
+				System.out.println("Please provide correct format, ex. rel R1 or rel R1 2");
 			if(tokens.length == 2)
 				releaseResource(tokens[1], 1, true);
 			else
 				releaseResource(tokens[1], Integer.parseInt(tokens[2]), true);
 		} else if (command.equals("rio")) {
+			if(tokens.length != 1)
+				System.out.println("Please provide correct format, ex. rio");
 			requestIO();
 		} else if (command.equals("ioc")) {
+			if(tokens.length != 1)
+				System.out.println("Please provide correct format, ex. ioc");
 			IOCompletion();
 		} else if (command.equals("lsp")) {
 			listAllProcessesAndStatus();
@@ -104,6 +116,10 @@ public class PRManager {
 			this.runningProcess = null;
 		else
 			this.RL.remove(pcb);
+		// remove from waiting list
+		for(RCB rcb : this.allResources){
+			rcb.getWaitingList().remove(new Waiting(pcb, 1));
+		}
 		
 		// free resources
 		for (Inventory inventory : pcb.getResourceList())

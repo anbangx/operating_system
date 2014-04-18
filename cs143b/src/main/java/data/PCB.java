@@ -48,6 +48,11 @@ public class PCB {
 		return null;
 	}
 	
+	@Override
+	public boolean equals(Object other) {
+		PCB pcb = (PCB)other;
+		return this.pid.equals(pcb.pid);
+	}
 	public String toString(){
 		return this.pid + " " + this.status.type;
 	}

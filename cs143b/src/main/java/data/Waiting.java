@@ -12,4 +12,10 @@ public class Waiting {
 	public String toString(){
 		return pcb + ":" + amount;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		Waiting waiting = (Waiting)other;
+		return this.pcb.getPid().equals(waiting.pcb.getPid());
+	}
 }
