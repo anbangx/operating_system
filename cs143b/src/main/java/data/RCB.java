@@ -29,10 +29,17 @@ public class RCB {
 		return this.waitingList.removeFirst();
 	}
 	
-	public String toString(){
+	public String getInfo(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(rid + ": ");
-		sb.append(available);
+		sb.append("[Av.: " + available + "], ");
+		sb.append("[List: {" + waitingList + "}]");
+		return sb.toString();
+	}
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(rid);
 		return sb.toString();
 	}
 	

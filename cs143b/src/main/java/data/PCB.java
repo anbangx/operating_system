@@ -19,6 +19,10 @@ public class PCB {
 			parent = null;
 			children = new LinkedList<PCB>();
 		}
+		
+		public String toString(){
+			return "Parent: " + parent.pid + ", Children: " + children.toString();
+		}
 	}
 	private String pid;
 	private LinkedList<RCB> resourceList;
@@ -46,6 +50,11 @@ public class PCB {
 	
 	public String toString(){
 		return this.pid + " " + this.status.type;
+	}
+	
+	public String getInfo(){
+		return this.pid + ": [Status: " + this.status.type + "], [" + this.creationTree 
+				+ "], ResourceList: " + this.resourceList + "]";
 	}
 	
 	public String getPid() {

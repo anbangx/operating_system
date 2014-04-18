@@ -2,4 +2,4 @@ cr A 1
 req R1
 cr B 2
 req R1
-lsp
+infor R1
