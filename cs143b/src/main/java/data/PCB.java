@@ -25,7 +25,7 @@ public class PCB {
 		}
 	}
 	private String pid;
-	private LinkedList<RCB> resourceList;
+	private LinkedList<Inventory> resourceList;
 	private Status status;
 	private CreationTree creationTree;
 	private int priority;
@@ -35,15 +35,15 @@ public class PCB {
 		this.priority = priority;
 		this.status = new Status();
 		this.creationTree = new CreationTree();
-		this.resourceList = new LinkedList<RCB>();
+		this.resourceList = new LinkedList<Inventory>();
 	}
 	
 	public RCB getRCB(String rid){
-		Iterator<RCB> it = this.resourceList.iterator();
+		Iterator<Inventory> it = this.resourceList.iterator();
 		while(it.hasNext()){
-			RCB rcb = it.next();
-			if(rcb.getRid().equals(rid))
-				return rcb;
+			Inventory inventory = it.next();
+			if(inventory.rcb.getRid().equals(rid))
+				return inventory.rcb;
 		}
 		return null;
 	}
@@ -65,11 +65,11 @@ public class PCB {
 		this.pid = pid;
 	}
 
-	public LinkedList<RCB> getResourceList() {
+	public LinkedList<Inventory> getResourceList() {
 		return resourceList;
 	}
 
-	public void setRList(LinkedList<RCB> rList) {
+	public void setRList(LinkedList<Inventory> rList) {
 		resourceList = rList;
 	}
 

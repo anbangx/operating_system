@@ -1,0 +1,34 @@
+cr x 2
+cr y 1
+to
+cr z 2
+to
+req R1
+to
+req R1
+de z
+rel R1
+de x
+
+init
+cr x 1
+cr p 1
+cr q 1
+cr r 1
+to
+req R2
+to
+req R3
+to
+req R4
+to
+to
+req R3
+req R4
+req R2
+to
+de q
+to
+to
+quit
+

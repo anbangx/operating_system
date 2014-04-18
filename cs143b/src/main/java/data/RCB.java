@@ -6,13 +6,13 @@ public class RCB {
 	private String rid;
 	private int available;
 	private int used;
-	private LinkedList<PCB> waitingList;
+	private LinkedList<Waiting> waitingList;
 	
 	public RCB(String rid, int available){
 		this.rid = rid;
 		this.available = available;
 		this.used = 0;
-		this.waitingList = new LinkedList<PCB>();
+		this.waitingList = new LinkedList<Waiting>();
 	}
 	
 	public void request(int num){
@@ -26,7 +26,14 @@ public class RCB {
 	}
 	
 	public PCB removeFirstFromWaitingList(){
-		return this.waitingList.removeFirst();
+		for(Waiting waiting : this.waitingList){
+			if(available >= waiting.amount){
+				request(waiting.amount);
+				this.waitingList.remove(waiting);
+				return waiting.pcb;
+			}
+		}
+		return null;
 	}
 	
 	public String getInfo(){
@@ -38,9 +45,7 @@ public class RCB {
 	}
 	
 	public String toString(){
-		StringBuilder sb = new StringBuilder();
-		sb.append(rid);
-		return sb.toString();
+		return rid;
 	}
 	
 	public String getRid() {
@@ -67,11 +72,11 @@ public class RCB {
 		this.used = used;
 	}
 
-	public LinkedList<PCB> getWaitingList() {
+	public LinkedList<Waiting> getWaitingList() {
 		return waitingList;
 	}
 
-	public void setWaitingList(LinkedList<PCB> waitingList) {
+	public void setWaitingList(LinkedList<Waiting> waitingList) {
 		this.waitingList = waitingList;
 	}
 	

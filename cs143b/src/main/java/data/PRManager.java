@@ -8,13 +8,13 @@ public class PRManager {
 	private LinkedList<RCB> allResources;
 	private RCB IO;
 	private ReadyList RL;
-	
-	public PRManager(){
+
+	public PRManager() {
 		init();
 		System.out.println("Process Init is running");
 	}
-	
-	public void init(){
+
+	public void init() {
 		this.runningProcess = new PCB("Init", 0);
 		this.runningProcess.getStatus().type = PCB.Type.RUNNING;
 		allResources = new LinkedList<RCB>();
@@ -25,8 +25,8 @@ public class PRManager {
 		RL = new ReadyList();
 		IO = new RCB("IO", 1);
 	}
-	
-	public void execute(String line){
+
+	public void execute(String line) {
 		String[] tokens = line.split(" ");
 		String command = tokens[0];
 		if (command.equals("")) {
@@ -37,197 +37,216 @@ public class PRManager {
 			init();
 		} else if (command.equals("cr")) {
 			createProcess(tokens[1], Integer.parseInt(tokens[2]));
-		} else if(command.equals("de")){ 
+		} else if (command.equals("de")) {
 			destroyProcess(tokens[1]);
-		} else if(command.equals("to")){ 
+		} else if (command.equals("to")) {
 			timeOut();
-		} else if(command.equals("req")){
-			requestResource(tokens[1]);
-		} else if(command.equals("rel")){
-			releaseResource(tokens[1], true);
-		} else if(command.equals("rio")){
+		} else if (command.equals("req")) {
+			if(tokens.length == 2)
+				requestResource(tokens[1], 1);
+			else
+				requestResource(tokens[1], Integer.parseInt(tokens[2]));
+		} else if (command.equals("rel")) {
+			if(tokens.length == 2)
+				releaseResource(tokens[1], 1, true);
+			else
+				releaseResource(tokens[1], Integer.parseInt(tokens[2]), true);
+		} else if (command.equals("rio")) {
 			requestIO();
-		} else if(command.equals("ioc")){
+		} else if (command.equals("ioc")) {
 			IOCompletion();
-		} else if(command.equals("lsp")){
+		} else if (command.equals("lsp")) {
 			listAllProcessesAndStatus();
-		} else if(command.equals("lsr")){
+		} else if (command.equals("lsr")) {
 			listAllResourcesAndStatus();
-		} else if(command.equals("infop")){
+		} else if (command.equals("infop")) {
 			printProcessInfo(tokens[1]);
-		} else if(command.equals("infor")){
+		} else if (command.equals("infor")) {
 			printResourceInfo(tokens[1]);
 		}
 		printCurrentRunningProcess();
 	}
-	
-	public void createProcess(String pid, int priority){
+
+	public void createProcess(String pid, int priority) {
 		// 1. create PCB data structure
 		PCB pcb = new PCB(pid, priority);
-		
+
 		// 2. link PCB to creation tree
 		this.runningProcess.getCreationTree().children.add(pcb);
 		pcb.getCreationTree().parent = this.runningProcess;
-		
+
 		// 3. insert PCB to RL
 		this.RL.insert(pcb);
-		
+
 		// 4. reschedule
 		this.scheduler();
 	}
-	
-	public void destroyProcess(String pid){
+
+	public void destroyProcess(String pid) {
 		PCB pcb = getPCB(pid);
-		if(pcb == null){
+		if (pcb == null) {
 			System.out.println("Process " + pid + " doesn't exist!");
 			return;
 		}
 		killTree(pcb);
 		this.scheduler();
 	}
-	
-	public void killTree(PCB pcb){
-		for(PCB child : pcb.getCreationTree().children){
+
+	public void killTree(PCB pcb) {
+		for (PCB child : pcb.getCreationTree().children) {
 			killTree(child);
 		}
-		
-		// free resources
-		for(RCB rcb : pcb.getResourceList())
-			releaseResource(rcb.getRid(), false);
+		pcb.getCreationTree().children.clear(); 
+		pcb.getCreationTree().parent.getCreationTree().children.remove(pcb);
 		
 		// update pointer
-		if(this.runningProcess != null && this.runningProcess.equals(pcb))
+		if (this.runningProcess != null && this.runningProcess.equals(pcb))
 			this.runningProcess = null;
 		else
 			this.RL.remove(pcb);
+		
+		// free resources
+		for (Inventory inventory : pcb.getResourceList())
+			releaseResource(inventory.rcb.getRid(), inventory.amount, false);
+		
 		pcb = null;
 	}
-	
-	public PCB getPCB(String pid){
+
+	public PCB getPCB(String pid) {
 		PCB pcb = null;
-		if(this.runningProcess.getPid().equals(pid))
+		if (this.runningProcess.getPid().equals(pid))
 			pcb = this.runningProcess;
-		else{
+		else {
 			pcb = this.RL.get(pid);
 		}
-		if(pcb == null)
+		if (pcb == null)
 			pcb = getPCBFromWaitingList(pid);
 		return pcb;
 	}
-	
-	public PCB getPCBFromWaitingList(String pid){
-		for(RCB rcb : this.allResources){
-			Iterator<PCB> it = rcb.getWaitingList().iterator();
-			while(it.hasNext()){
-				PCB pcb = it.next();
-				if(pcb.getPid().equals(pid))
-					return pcb;
+
+	public PCB getPCBFromWaitingList(String pid) {
+		for (RCB rcb : this.allResources) {
+			Iterator<Waiting> it = rcb.getWaitingList().iterator();
+			while (it.hasNext()) {
+				Waiting waiting = it.next();
+				if (waiting.pcb.getPid().equals(pid))
+					return waiting.pcb;
 			}
 		}
 		return null;
 	}
-	
-	public void requestResource(String rid){
+
+	public void requestResource(String rid, int amount) {
 		// get the corresponding RCB using rid
 		RCB rcb = this.getRCB(rid);
-		if(rcb.getAvailable() > 0){
-			rcb.request(1);
-			this.runningProcess.getResourceList().add(rcb);
-		} else{
+		if (rcb.getAvailable() >= amount) { 
+			rcb.request(amount);
+			this.runningProcess.getResourceList().add(
+					new Inventory(rcb, amount));
+		} else {
 			this.runningProcess.getStatus().type = PCB.Type.WAITING;
 			this.RL.remove(this.runningProcess);
-			rcb.getWaitingList().add(this.runningProcess);
+			rcb.getWaitingList().add(new Waiting(this.runningProcess, amount));
 			scheduler();
 		}
 	}
-	
-	public void releaseResource(String rid, boolean releaseByRunningProcess){
+
+	public void releaseResource(String rid, int amount, boolean releaseByRunningProcess) {
 		RCB rcb = null;
-		if(releaseByRunningProcess){
+		if (releaseByRunningProcess) {
 			rcb = this.runningProcess.getRCB(rid);
-			if(rcb == null){
-				System.out.println("Release " + rid + " failed, the current running process doesn't hold this resource!");
+			if (rcb == null) {
+				System.out
+						.println("Release "
+								+ rid
+								+ " failed, the current running process doesn't hold this resource!");
 				return;
 			}
 			this.runningProcess.getResourceList().remove(rcb);
-		} else{ // release when destroy the process
-			for(RCB resource : this.allResources){
-				if(resource.getRid().equals(rid)){
+		} else { // release when destroy the process
+			for (RCB resource : this.allResources) {
+				if (resource.getRid().equals(rid)) {
 					rcb = resource;
 					break;
 				}
 			}
-			if(rcb == null){
-				System.out.println("Release " + rid + " failed, this resource doesn't exist!");
+			if (rcb == null) {
+				System.out.println("Release " + rid
+						+ " failed, this resource doesn't exist!");
 				return;
 			}
 		}
-		LinkedList<PCB> waitingList = rcb.getWaitingList();
-		if(waitingList.isEmpty())
-			rcb.release(1);
-		else{
+		LinkedList<Waiting> waitingList = rcb.getWaitingList();
+		rcb.release(amount);
+		if (!waitingList.isEmpty()){
+			int total = rcb.getAvailable();
 			PCB pcb = rcb.removeFirstFromWaitingList();
-			pcb.getStatus().type = PCB.Type.READY;
-			pcb.getStatus().RL = this.RL;
-			this.RL.insert(pcb);
-			pcb.getResourceList().add(rcb);
+			if(pcb != null){
+				pcb.getStatus().type = PCB.Type.READY;
+				pcb.getStatus().RL = this.RL;
+				this.RL.insert(pcb);
+				pcb.getResourceList().add(new Inventory(rcb, total - rcb.getAvailable()));
+			}
 			scheduler();
 		}
 	}
-	
-	public RCB getRCB(String rid){
+
+	public RCB getRCB(String rid) {
 		Iterator<RCB> it = this.allResources.iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			RCB rcb = it.next();
-			if(rcb.getRid().equals(rid))
+			if (rcb.getRid().equals(rid))
 				return rcb;
 		}
 		return null;
 	}
-	
-	public void requestIO(){
+
+	public void requestIO() {
 		this.runningProcess.getStatus().type = PCB.Type.WAITING;
 		this.runningProcess.getStatus().RL = null;
 		this.RL.remove(this.runningProcess);
-		this.IO.getWaitingList().add(this.runningProcess);
+		this.IO.getWaitingList().add(new Waiting(this.runningProcess, 1));
 		scheduler();
 	}
-	
-	public void IOCompletion(){
+
+	public void IOCompletion() {
 		PCB pcb = this.IO.removeFirstFromWaitingList();
 		pcb.getStatus().type = PCB.Type.READY;
 		pcb.getStatus().RL = this.RL;
 		this.RL.insert(pcb);
 		scheduler();
 	}
-	
+
 	// function call simulate time out
-	public void timeOut(){
+	public void timeOut() {
 		// 1. insert q into Ready List
 		this.RL.insert(this.runningProcess);
-		
+
 		// 2. change q.status to ready
 		this.runningProcess.getStatus().type = PCB.Type.READY;
-		
+
 		// 3. reschedule
 		this.scheduler();
 	}
-	
-	public void scheduler(){
+
+	public void scheduler() {
 		// 1. find highest priority process
 		PCB highest = RL.getPCBWithHighPriority();
-		
+
 		// 2. under some conditions, do context switch
-		if(this.runningProcess == null	//(3) destroy
-				|| this.runningProcess.getPriority() < highest.getPriority()	//(1) create/release
-				|| this.runningProcess.getStatus().type != PCB.Type.RUNNING	//(2) request/time-out
-				)	
+		if (this.runningProcess == null // (3) destroy
+				|| this.runningProcess.getPriority() < highest.getPriority() // (1)
+																				// create/release
+				|| this.runningProcess.getStatus().type != PCB.Type.RUNNING // (2)
+																			// request/time-out
+		)
 			preempt(highest);
 	}
-	
-	public void preempt(PCB highest){
-		//(1)
-		if(this.runningProcess != null && this.runningProcess.getStatus().type == PCB.Type.RUNNING){
+
+	public void preempt(PCB highest) {
+		// (1)
+		if (this.runningProcess != null
+				&& this.runningProcess.getStatus().type == PCB.Type.RUNNING) {
 			this.runningProcess.getStatus().type = PCB.Type.READY;
 			this.RL.insert(this.runningProcess);
 		}
@@ -235,40 +254,41 @@ public class PRManager {
 		this.runningProcess = highest;
 		this.RL.remove(highest);
 	}
-	
-	public void printCurrentRunningProcess(){
-		System.out.println("Process " + this.runningProcess.getPid() + " is running");
+
+	public void printCurrentRunningProcess() {
+		System.out.println("Process " + this.runningProcess.getPid()
+				+ " is running");
 	}
-	
-	public void listAllProcessesAndStatus(){
+
+	public void listAllProcessesAndStatus() {
 		System.out.println("The ready list is: \n" + this.RL);
 		printWaitingList();
 	}
-	
-	public void printWaitingList(){
+
+	public void printWaitingList() {
 		System.out.println("The waiting list is :");
 		boolean flag = false;
-		for(RCB rcb : this.allResources){
-			if(!rcb.getWaitingList().isEmpty()){
+		for (RCB rcb : this.allResources) {
+			if (!rcb.getWaitingList().isEmpty()) {
 				flag = true;
 				System.out.print(rcb.getWaitingList() + "	");
 			}
 		}
-		if(!flag)
+		if (!flag)
 			System.out.println();
 	}
-	
-	public void listAllResourcesAndStatus(){
-		for(RCB rcb : this.allResources)
+
+	public void listAllResourcesAndStatus() {
+		for (RCB rcb : this.allResources)
 			System.out.println(rcb.getInfo());
 	}
-	
-	public void printProcessInfo(String pid){
+
+	public void printProcessInfo(String pid) {
 		PCB pcb = getPCB(pid);
 		System.out.println(pcb.getInfo());
 	}
-	
-	public void printResourceInfo(String rid){
+
+	public void printResourceInfo(String rid) {
 		RCB rcb = this.getRCB(rid);
 		System.out.println(rcb.getInfo());
 	}
