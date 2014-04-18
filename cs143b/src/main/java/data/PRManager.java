@@ -80,6 +80,10 @@ public class PRManager {
 	}
 
 	public void createProcess(String pid, int priority) {
+		if(getPCB(pid) != null){
+			System.out.println("Process " + pid + " already existed!");
+			return;
+		}
 		// 1. create PCB data structure
 		PCB pcb = new PCB(pid, priority);
 
@@ -170,7 +174,8 @@ public class PRManager {
 	public void releaseResource(String rid, int amount, boolean releaseByRunningProcess) {
 		RCB rcb = null;
 		if (releaseByRunningProcess) {
-			rcb = this.runningProcess.getRCB(rid);
+			Inventory inventory = this.runningProcess.getInventory(rid);
+			rcb = inventory.rcb;
 			if (rcb == null) {
 				System.out
 						.println("Release "
@@ -178,7 +183,14 @@ public class PRManager {
 								+ " failed, the current running process doesn't hold this resource!");
 				return;
 			}
-			this.runningProcess.getResourceList().remove(rcb);
+			if(amount > inventory.amount){
+				System.out.println("The current running process only holds " + inventory.amount + " " + rid + "!");
+				return;
+			} else if(amount == inventory.amount){
+				this.runningProcess.getResourceList().remove(rcb);
+			} else{
+				inventory.amount -= amount;
+			}
 		} else { // release when destroy the process
 			for (RCB resource : this.allResources) {
 				if (resource.getRid().equals(rid)) {
@@ -230,6 +242,7 @@ public class PRManager {
 		pcb.getStatus().type = PCB.Type.READY;
 		pcb.getStatus().RL = this.RL;
 		this.RL.insert(pcb);
+		this.IO.release(1);
 		scheduler();
 	}
 
@@ -297,6 +310,7 @@ public class PRManager {
 	public void listAllResourcesAndStatus() {
 		for (RCB rcb : this.allResources)
 			System.out.println(rcb.getInfo());
+		System.out.println(IO.getInfo());
 	}
 
 	public void printProcessInfo(String pid) {

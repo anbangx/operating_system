@@ -16,13 +16,13 @@ public class RCB {
 	}
 	
 	public void request(int num){
-		this.available--;
-		this.used++;
+		this.available = this.available - num;
+		this.used = this.used + num;
 	}
 	
 	public void release(int num){
-		this.available++;
-		this.used--;
+		this.available = this.available + num;
+		this.used = this.used - num;
 	}
 	
 	public PCB removeFirstFromWaitingList(){

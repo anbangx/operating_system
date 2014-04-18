@@ -38,6 +38,16 @@ public class PCB {
 		this.resourceList = new LinkedList<Inventory>();
 	}
 	
+	public Inventory getInventory(String rid){
+		Iterator<Inventory> it = this.resourceList.iterator();
+		while(it.hasNext()){
+			Inventory inventory = it.next();
+			if(inventory.rcb.getRid().equals(rid))
+				return inventory;
+		}
+		return null;
+	}
+	
 	public RCB getRCB(String rid){
 		Iterator<Inventory> it = this.resourceList.iterator();
 		while(it.hasNext()){
