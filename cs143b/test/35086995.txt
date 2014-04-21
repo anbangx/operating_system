@@ -1,0 +1,5 @@
+Init is running
+A is running
+Init is running
+A is running
+Process terminated

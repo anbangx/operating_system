@@ -44,6 +44,10 @@ public class RCB {
 		return sb.toString();
 	}
 	
+	public int getTotal(){
+		return this.available + this.used;
+	}
+	
 	public String toString(){
 		return rid;
 	}

@@ -1,0 +1,4 @@
+cr A 1
+rio
+ioc
+quit

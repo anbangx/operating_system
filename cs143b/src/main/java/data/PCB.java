@@ -58,6 +58,18 @@ public class PCB {
 		return null;
 	}
 	
+	public static boolean isChild(PCB root, String pid){
+		if(root == null)
+			return false;
+		if(root.getPid().equals(pid))
+			return true;
+		for(PCB child : root.getCreationTree().children){
+			if(isChild(child, pid))
+				return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		PCB pcb = (PCB)other;
