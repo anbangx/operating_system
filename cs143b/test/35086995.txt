@@ -1,22 +1,34 @@
 Init is running
 A is running
+Init is running
+
+
+Init is running
+A is running
+A is running
+A is running
+Init is running
+
+
+Init is running
+D is running
+A is running
+A is running
+A is running
+D is running
+
+
+Init is running
 A is running
 A is running
 B is running
-A is running
+B is running
 A is running
 B is running
+A is running
 
 
 Init is running
 A is running
 error
-
-
-Init is running
-A is running
-A is running
-B is running
-A is running
-B is running
 Process terminated

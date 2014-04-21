@@ -55,6 +55,8 @@ public class OSDriver {
 		bw.write("Init is running\n");
 		String line;
 		while ((line = br.readLine()) != null) {
+			System.out.println("---------------");
+			System.out.println("input: " + line);
 			if (line.equals("quit")) {
 				System.out.println("Process terminated");
 				bw.write("Process terminated\n");

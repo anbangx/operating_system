@@ -32,7 +32,7 @@ public class PRManager {
 		String command = tokens[0];
 		if (command.equals("")) {
 			System.out.println();
-			return "\n";
+			return "";
 		}
 		if (command.equals("init")) {
 			init();
