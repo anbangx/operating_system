@@ -10,11 +10,11 @@ public class MMManager {
 	public static final int DIFF_BETWEEN_HOLESIZE_AND_BLOCKSIZE = TAG_SIZE * 2;
 	public static final int INTEGER_SIZE = 4;
 
-	public int removeHoleSize = 0;
 	private PackableMemory memoryBlock;
 	private int totalByteSize;
 	private int firstHole;
 	private int lastHole;
+	public int numHoleExamined = 0;
 
 	public MMManager() {
 		memoryBlock = null;
@@ -58,7 +58,7 @@ public class MMManager {
 
 	public int request(int size) {
 		// 1. run algorithm to find suitable memory block
-		int holeStartIdx = firstFit(size);
+		int holeStartIdx = bestFit(size);
 		if (holeStartIdx == -1) {
 			System.out.println("Request " + size + ", but insufficient memory");
 			return -1;
@@ -126,15 +126,48 @@ public class MMManager {
 	 * Algorithm1: First-fit
 	 */
 	public int firstFit(int requestSize) {
+		numHoleExamined = 0;
 		int curHole = firstHole;
 		while (curHole >= 0) {
+			numHoleExamined++;
 			if (requestSize < getBlockSize(curHole))
 				return curHole;
 			curHole = getNextHole(curHole);
 		}
 		return -1;
 	}
-
+	
+	/**
+	 * Algorithm2: Best-fit 
+	 */
+	public int bestFit(int requestSize){
+		numHoleExamined = 0;
+		int curHole = firstHole;
+		int minDiff = Integer.MAX_VALUE;
+		int returnHole = -1;
+		
+		while (curHole >= 0) {
+			int blockSize = getBlockSize(curHole);
+			numHoleExamined++;
+			if(blockSize >= requestSize && (blockSize - requestSize) < minDiff){
+				minDiff = blockSize - requestSize;
+				returnHole = curHole;
+			}
+			curHole = getNextHole(curHole);
+		}
+		return returnHole >= 0 ? returnHole : -1;
+	}
+	
+	public int getTotalHoles(){
+		int total = 0;
+		int startHole = firstHole;
+		while (startHole >= 0) {
+			total++;
+			startHole = getNextHole(startHole);
+		}
+		return total;
+	}
+	
 	public int release(int blockIdx) {
 		// 1. compute left, right if occupied
 		int curHoleStart = blockIdx - INTEGER_SIZE * TAG_SIZE;
@@ -316,6 +349,16 @@ public class MMManager {
 			sb.append("[" + startHole + "," + endHole + ";" + getBlockSize(startHole) +"] ");
 		}
 		System.out.println("OccupiedBlocks: " + sb.toString());
+	}
+	
+	public int getSizeOfOccupiedBlock(ArrayList<Integer> allocatedBlocks){
+		int totalSize = 0;
+		for(int i = 0; i < allocatedBlocks.size(); i++){
+			int blockIdx = allocatedBlocks.get(i);
+			int startHole = blockIdx - INTEGER_SIZE * TAG_SIZE;
+			totalSize += getBlockSize(startHole);
+		}
+		return totalSize;
 	}
 	
 	public static void main(String[] args) {
