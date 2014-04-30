@@ -1,5 +1,7 @@
 package mm.core;
 
+import java.util.ArrayList;
+
 public class MMManager {
 
 	public static final int TAG_SIZE = 1;
@@ -8,6 +10,7 @@ public class MMManager {
 	public static final int DIFF_BETWEEN_HOLESIZE_AND_BLOCKSIZE = TAG_SIZE * 2;
 	public static final int INTEGER_SIZE = 4;
 
+	public int removeHoleSize = 0;
 	private PackableMemory memoryBlock;
 	private int totalByteSize;
 	private int firstHole;
@@ -65,8 +68,6 @@ public class MMManager {
 		int prevHole = getPrevHole(holeStartIdx);
 		int nextHole = getNextHole(holeStartIdx);
 
-		// int blockSize = getBlockSize(holeStartIdx);
-		// int holeSize = getHoleSizeFromBlockSize(blockSize);
 		// if has sufficient memory, create a memory with input size
 		// 2. compute the startIdx of new hole
 		int newHoleEndIdx = getHoleEndFromHoleStart(holeStartIdx);
@@ -83,6 +84,10 @@ public class MMManager {
 				- DIFF_BETWEEN_HOLESIZE_AND_BLOCKSIZE;
 		// 4.1. if hole become too small
 		if (remainBlockSize < 2) {
+			memoryBlock.pack(size + remainHoleSize, holeStartIdx);
+			memoryBlock.pack(size + remainHoleSize, newHoleEndIdx - INTEGER_SIZE * TAG_SIZE);
+			newHoleStartIdx = holeStartIdx;
+			
 			// remove hole
 			if (prevHole != -1)
 				setNextHole(prevHole, nextHole);
@@ -95,10 +100,10 @@ public class MMManager {
 				lastHole = prevHole;
 				setNextHole(lastHole, -1);
 			}
-			if (remainHoleSize > 0) {
-				memoryBlock.pack(0, holeStartIdx);
-				memoryBlock.pack(0, newHoleStartIdx - INTEGER_SIZE * TAG_SIZE);
-			}
+//			if (remainHoleSize > 0) {
+//				memoryBlock.pack(0, holeStartIdx);
+//				memoryBlock.pack(0, newHoleStartIdx - INTEGER_SIZE * TAG_SIZE);
+//			}
 		} else { // 4.2. otherwise
 			memoryBlock.pack(-remainBlockSize, holeStartIdx);
 			memoryBlock.pack(-remainBlockSize, newHoleStartIdx - INTEGER_SIZE
@@ -122,7 +127,7 @@ public class MMManager {
 	 */
 	public int firstFit(int requestSize) {
 		int curHole = firstHole;
-		while (curHole != -1) {
+		while (curHole >= 0) {
 			if (requestSize < getBlockSize(curHole))
 				return curHole;
 			curHole = getNextHole(curHole);
@@ -135,7 +140,11 @@ public class MMManager {
 		int curHoleStart = blockIdx - INTEGER_SIZE * TAG_SIZE;
 		int curHoleEnd = getHoleEndFromHoleStart(curHoleStart);
 		int blockSize = getBlockSize(curHoleStart);
-		int left = memoryBlock.unpack(curHoleStart - INTEGER_SIZE * TAG_SIZE);
+		int left;
+		if(curHoleStart - INTEGER_SIZE * TAG_SIZE < 0)
+			left = 1;
+		else
+			left = memoryBlock.unpack(curHoleStart - INTEGER_SIZE * TAG_SIZE);
 		int right;
 		if (curHoleEnd + INTEGER_SIZE * TAG_SIZE > totalByteSize)
 			right = 1;
@@ -174,8 +183,13 @@ public class MMManager {
 			memoryBlock.pack(-newBlockSize, rightHoleEnd - INTEGER_SIZE
 					* TAG_SIZE);
 			// (2). move right hole reference to cur
+			// update reference from cur perspective
 			setPrevHole(curHoleStart, getPrevHole(curHoleEnd));
 			setNextHole(curHoleStart, getNextHole(curHoleEnd));
+			// update reference from prev/next perspective
+			setNextHole(getPrevHole(curHoleEnd), curHoleStart);
+			setPrevHole(getNextHole(curHoleEnd), curHoleStart);
+			
 			if(curHoleEnd == firstHole)
 				firstHole = curHoleStart;
 			if(curHoleEnd == lastHole)
@@ -263,14 +277,14 @@ public class MMManager {
 	}
 
 	public void setPrevHole(int curHole, int prevHole) {
-		if (curHole == -1)
+		if (curHole < 0)
 			return;
 		int curPreReferIdx = curHole + INTEGER_SIZE * TAG_SIZE;
 		memoryBlock.pack(prevHole, curPreReferIdx);
 	}
 
 	public void setNextHole(int curHole, int nextHole) {
-		if (curHole == -1)
+		if (curHole < 0)
 			return;
 		int curNextReferIdx = curHole + INTEGER_SIZE
 				* (TAG_SIZE + PREV_INDEX_SIZE);
@@ -281,7 +295,29 @@ public class MMManager {
 		return startIdx + INTEGER_SIZE
 				* (TAG_SIZE + PREV_INDEX_SIZE + NEXT_INDEX_SIZE);
 	}
-
+	
+	public void printEmptyHole(){
+		StringBuilder sb = new StringBuilder();
+		int startHole = firstHole;
+		while (startHole >= 0) {
+			int endHole = getHoleEndFromHoleStart(startHole);
+			sb.append("[" + startHole + "," + endHole + ";" + getBlockSize(startHole) +"] ");
+			startHole = getNextHole(startHole);
+		}
+		System.out.println("Holes: " + sb.toString());
+	}
+	
+	public void printOccupiedBlock(ArrayList<Integer> allocatedBlocks){
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < allocatedBlocks.size(); i++){
+			int blockIdx = allocatedBlocks.get(i);
+			int startHole = blockIdx - INTEGER_SIZE * TAG_SIZE;
+			int endHole = getHoleEndFromHoleStart(startHole);
+			sb.append("[" + startHole + "," + endHole + ";" + getBlockSize(startHole) +"] ");
+		}
+		System.out.println("OccupiedBlocks: " + sb.toString());
+	}
+	
 	public static void main(String[] args) {
 		test();
 		test1();
