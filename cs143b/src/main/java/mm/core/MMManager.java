@@ -31,6 +31,9 @@ public class MMManager {
 		// 2. create and init the hole, then return the block start index
 		createAndInitHole(0, false, totalSize
 				- DIFF_BETWEEN_HOLESIZE_AND_BLOCKSIZE, -1, -1);
+
+		System.out.println("Init " + totalSize + " in [0," + totalByteSize
+				+ "]");
 	}
 
 	public void createAndInitHole(int holeStartIdx, boolean occupied,
@@ -85,25 +88,22 @@ public class MMManager {
 		// 4.1. if hole become too small
 		if (remainBlockSize < 2) {
 			memoryBlock.pack(size + remainHoleSize, holeStartIdx);
-			memoryBlock.pack(size + remainHoleSize, newHoleEndIdx - INTEGER_SIZE * TAG_SIZE);
+			memoryBlock.pack(size + remainHoleSize, newHoleEndIdx
+					- INTEGER_SIZE * TAG_SIZE);
 			newHoleStartIdx = holeStartIdx;
-			
+
 			// remove hole
 			if (prevHole != -1)
 				setNextHole(prevHole, nextHole);
 			if (nextHole != -1)
 				setPrevHole(nextHole, prevHole);
-			if (holeStartIdx == firstHole){
+			if (holeStartIdx == firstHole) {
 				firstHole = nextHole;
 			}
 			if (holeStartIdx == lastHole) {
 				lastHole = prevHole;
 				setNextHole(lastHole, -1);
 			}
-//			if (remainHoleSize > 0) {
-//				memoryBlock.pack(0, holeStartIdx);
-//				memoryBlock.pack(0, newHoleStartIdx - INTEGER_SIZE * TAG_SIZE);
-//			}
 		} else { // 4.2. otherwise
 			memoryBlock.pack(-remainBlockSize, holeStartIdx);
 			memoryBlock.pack(-remainBlockSize, newHoleStartIdx - INTEGER_SIZE
@@ -115,7 +115,8 @@ public class MMManager {
 		if (debug) {
 			System.out.print("Request " + size + " in [" + newHoleStartIdx
 					+ "," + newHoleEndIdx + "], ");
-			System.out.println("remaining: " + remainBlockSize);
+			System.out.println("and the block start index is: "
+					+ (newHoleStartIdx + INTEGER_SIZE * TAG_SIZE));
 		}
 
 		// return start index of new block
@@ -136,20 +137,20 @@ public class MMManager {
 		}
 		return -1;
 	}
-	
+
 	/**
-	 * Algorithm2: Best-fit 
+	 * Algorithm2: Best-fit
 	 */
-	public int bestFit(int requestSize){
+	public int bestFit(int requestSize) {
 		numHoleExamined = 0;
 		int curHole = firstHole;
 		int minDiff = Integer.MAX_VALUE;
 		int returnHole = -1;
-		
+
 		while (curHole >= 0) {
 			int blockSize = getBlockSize(curHole);
 			numHoleExamined++;
-			if(blockSize >= requestSize && (blockSize - requestSize) < minDiff){
+			if (blockSize >= requestSize && (blockSize - requestSize) < minDiff) {
 				minDiff = blockSize - requestSize;
 				returnHole = curHole;
 			}
@@ -157,8 +158,8 @@ public class MMManager {
 		}
 		return returnHole >= 0 ? returnHole : -1;
 	}
-	
-	public int getTotalHoles(){
+
+	public int getTotalHoles() {
 		int total = 0;
 		int startHole = firstHole;
 		while (startHole >= 0) {
@@ -167,14 +168,14 @@ public class MMManager {
 		}
 		return total;
 	}
-	
+
 	public int release(int blockIdx) {
 		// 1. compute left, right if occupied
 		int curHoleStart = blockIdx - INTEGER_SIZE * TAG_SIZE;
 		int curHoleEnd = getHoleEndFromHoleStart(curHoleStart);
 		int blockSize = getBlockSize(curHoleStart);
 		int left;
-		if(curHoleStart - INTEGER_SIZE * TAG_SIZE < 0)
+		if (curHoleStart - INTEGER_SIZE * TAG_SIZE < 0)
 			left = 1;
 		else
 			left = memoryBlock.unpack(curHoleStart - INTEGER_SIZE * TAG_SIZE);
@@ -197,7 +198,7 @@ public class MMManager {
 				lastHole = curHoleStart;
 				firstHole = lastHole;
 			} else {
-				setPrevHole(curHoleStart, lastHole); 
+				setPrevHole(curHoleStart, lastHole);
 				setNextHole(lastHole, curHoleStart);
 				lastHole = curHoleStart;
 			}
@@ -222,10 +223,10 @@ public class MMManager {
 			// update reference from prev/next perspective
 			setNextHole(getPrevHole(curHoleEnd), curHoleStart);
 			setPrevHole(getNextHole(curHoleEnd), curHoleStart);
-			
-			if(curHoleEnd == firstHole)
+
+			if (curHoleEnd == firstHole)
 				firstHole = curHoleStart;
-			if(curHoleEnd == lastHole)
+			if (curHoleEnd == lastHole)
 				lastHole = curHoleStart;
 
 			System.out.println("Release " + blockSize + " in [" + curHoleStart
@@ -237,7 +238,7 @@ public class MMManager {
 			// (1). update tag - size
 			int newBlockSize = blockSize + Math.abs(left) + 2 * TAG_SIZE;
 			int leftHoleStart = getHoleStartFromHoleEnd(curHoleStart);
-			memoryBlock.pack(-newBlockSize, leftHoleStart); 
+			memoryBlock.pack(-newBlockSize, leftHoleStart);
 			memoryBlock.pack(-newBlockSize, curHoleEnd - INTEGER_SIZE
 					* TAG_SIZE);
 
@@ -270,7 +271,7 @@ public class MMManager {
 			setNextHole(prevHole, nextHole);
 		if (nextHole != -1)
 			setPrevHole(nextHole, prevHole);
-		if (curHole == firstHole){
+		if (curHole == firstHole) {
 			firstHole = nextHole;
 		}
 		if (curHole == lastHole) {
@@ -328,39 +329,41 @@ public class MMManager {
 		return startIdx + INTEGER_SIZE
 				* (TAG_SIZE + PREV_INDEX_SIZE + NEXT_INDEX_SIZE);
 	}
-	
-	public void printEmptyHole(){
+
+	public void printEmptyHole() {
 		StringBuilder sb = new StringBuilder();
 		int startHole = firstHole;
 		while (startHole >= 0) {
 			int endHole = getHoleEndFromHoleStart(startHole);
-			sb.append("[" + startHole + "," + endHole + ";" + getBlockSize(startHole) +"] ");
+			sb.append("[" + startHole + "," + endHole + ";"
+					+ getBlockSize(startHole) + "] ");
 			startHole = getNextHole(startHole);
 		}
 		System.out.println("Holes: " + sb.toString());
 	}
-	
-	public void printOccupiedBlock(ArrayList<Integer> allocatedBlocks){
+
+	public void printOccupiedBlock(ArrayList<Integer> allocatedBlocks) {
 		StringBuilder sb = new StringBuilder();
-		for(int i = 0; i < allocatedBlocks.size(); i++){
+		for (int i = 0; i < allocatedBlocks.size(); i++) {
 			int blockIdx = allocatedBlocks.get(i);
 			int startHole = blockIdx - INTEGER_SIZE * TAG_SIZE;
 			int endHole = getHoleEndFromHoleStart(startHole);
-			sb.append("[" + startHole + "," + endHole + ";" + getBlockSize(startHole) +"] ");
+			sb.append("[" + startHole + "," + endHole + ";"
+					+ getBlockSize(startHole) + "] ");
 		}
 		System.out.println("OccupiedBlocks: " + sb.toString());
 	}
-	
-	public int getSizeOfOccupiedBlock(ArrayList<Integer> allocatedBlocks){
+
+	public int getSizeOfOccupiedBlock(ArrayList<Integer> allocatedBlocks) {
 		int totalSize = 0;
-		for(int i = 0; i < allocatedBlocks.size(); i++){
+		for (int i = 0; i < allocatedBlocks.size(); i++) {
 			int blockIdx = allocatedBlocks.get(i);
 			int startHole = blockIdx - INTEGER_SIZE * TAG_SIZE;
 			totalSize += getBlockSize(startHole);
 		}
 		return totalSize;
 	}
-	
+
 	public static void main(String[] args) {
 		test();
 		test1();
@@ -375,14 +378,8 @@ public class MMManager {
 		mmm.init(100);
 
 		int n = 10;
-		for (int i = 0; i < n; i++) {
-			int startIdx = mmm.request(10);
-			if (startIdx == -1)
-				System.err.println("Insufficient memory");
-			else
-				System.out.println("Req succeeds, and the start index is: "
-						+ startIdx);
-		}
+		for (int i = 0; i < n; i++)
+			mmm.request(10);
 		System.out.println();
 	}
 
@@ -391,16 +388,11 @@ public class MMManager {
 		MMManager mmm = new MMManager();
 		mmm.init(100);
 
-		int A = mmm.request(10);
-		System.out.println("Req A succeeds, and the start index is: " + A);
+		mmm.request(10);
 		int B = mmm.request(10);
-		System.out.println("Req B succeeds, and the start index is: " + B);
-		int C = mmm.request(10);
-		System.out.println("Req C succeeds, and the start index is: " + C);
-		int D = mmm.request(10);
-		System.out.println("Req D succeeds, and the start index is: " + D);
-		int B2 = mmm.release(B);
-		System.out.println("Rel B succeeds, and the start index is: " + B2);
+		mmm.request(10);
+		mmm.request(10);
+		mmm.release(B);
 		System.out.println();
 	}
 
@@ -410,17 +402,11 @@ public class MMManager {
 		mmm.init(100);
 
 		int A = mmm.request(10);
-		System.out.println("Req A succeeds, and the start index is: " + A);
 		int B = mmm.request(10);
-		System.out.println("Req B succeeds, and the start index is: " + B);
-		int C = mmm.request(10);
-		System.out.println("Req C succeeds, and the start index is: " + C);
-		int D = mmm.request(10);
-		System.out.println("Req D succeeds, and the start index is: " + D);
-		int A2 = mmm.release(A);
-		System.out.println("Rel A succeeds, and the start index is: " + A2);
-		A2 = mmm.release(B);
-		System.out.println("Rel B succeeds, and the start index is: " + A2);
+		mmm.request(10);
+		mmm.request(10);
+		mmm.release(A);
+		mmm.release(B);
 		System.out.println();
 	}
 
@@ -429,18 +415,12 @@ public class MMManager {
 		MMManager mmm = new MMManager();
 		mmm.init(100);
 
-		int A = mmm.request(10);
-		System.out.println("Req A succeeds, and the start index is: " + A);
+		mmm.request(10);
 		int B = mmm.request(10);
-		System.out.println("Req B succeeds, and the start index is: " + B);
 		int C = mmm.request(10);
-		System.out.println("Req C succeeds, and the start index is: " + C);
-		int D = mmm.request(10);
-		System.out.println("Req D succeeds, and the start index is: " + D);
-		int C2 = mmm.release(C);
-		System.out.println("Rel C succeeds, and the start index is: " + C2);
-		C2 = mmm.release(B);
-		System.out.println("Rel B succeeds, and the start index is: " + C2);
+		mmm.request(10);
+		mmm.release(C);
+		mmm.release(B);
 		System.out.println();
 	}
 
@@ -450,19 +430,12 @@ public class MMManager {
 		mmm.init(100);
 
 		int A = mmm.request(10);
-		System.out.println("Req A succeeds, and the start index is: " + A);
 		int B = mmm.request(10);
-		System.out.println("Req B succeeds, and the start index is: " + B);
 		int C = mmm.request(10);
-		System.out.println("Req C succeeds, and the start index is: " + C);
-		int D = mmm.request(10);
-		System.out.println("Req D succeeds, and the start index is: " + D);
-		int A2 = mmm.release(A);
-		System.out.println("Rel A succeeds, and the start index is: " + A2);
-		int C2 = mmm.release(C);
-		System.out.println("Rel C succeeds, and the start index is: " + C2);
-		A2 = mmm.release(B);
-		System.out.println("Rel B succeeds, and the start index is: " + A2);
+		mmm.request(10);
+		mmm.release(A);
+		mmm.release(C);
+		mmm.release(B);
 		System.out.println();
 	}
 }
