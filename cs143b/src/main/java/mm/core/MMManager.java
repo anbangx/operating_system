@@ -3,7 +3,11 @@ package mm.core;
 import java.util.ArrayList;
 
 public class MMManager {
-
+	
+	public enum Strategy {
+		FIRST_FIT, BEST_FIT
+	}
+	
 	public static final int TAG_SIZE = 1;
 	public static final int PREV_INDEX_SIZE = 1;
 	public static final int NEXT_INDEX_SIZE = 1;
@@ -35,6 +39,14 @@ public class MMManager {
 		System.out.println("Init " + totalSize + " in [0," + totalByteSize
 				+ "]");
 	}
+	
+	public void reset(int totalSize){
+		memoryBlock = null;
+		totalByteSize = 0;
+		firstHole = -1;
+		lastHole = -1;
+		init(totalSize);
+	}
 
 	public void createAndInitHole(int holeStartIdx, boolean occupied,
 			int blockSize, int prev, int next) {
@@ -58,10 +70,26 @@ public class MMManager {
 		firstHole = 0;
 		lastHole = 0;
 	}
-
-	public int request(int size) {
+	
+	/**
+	 * The default strategy is FIRST_FIT
+	 */
+	public int request(int size){
+		return request(size, Strategy.FIRST_FIT);
+	}
+	
+	public int request(int size, Strategy strategy) {
 		// 1. run algorithm to find suitable memory block
-		int holeStartIdx = bestFit(size);
+		int holeStartIdx = -1;
+		switch(strategy){
+			case FIRST_FIT:
+				holeStartIdx = firstFit(size);
+				break;
+			case BEST_FIT:
+				holeStartIdx = bestFit(size);
+				break;
+		}
+		
 		if (holeStartIdx == -1) {
 			System.out.println("Request " + size + ", but insufficient memory");
 			return -1;
