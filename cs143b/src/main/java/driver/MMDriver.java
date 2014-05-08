@@ -7,7 +7,7 @@ import mm.core.MMManager;
 import mm.core.MMManager.Strategy;
 
 public class MMDriver {
-
+	
 	public static Random random = new Random(1000);
 	public static MMManager mmm = new MMManager();
 	
@@ -74,7 +74,7 @@ public class MMDriver {
 			allocatedBlocks.remove(p);
 			mmm.printOccupiedBlock(allocatedBlocks);
 			System.out.println("Utilization: " + utilization);
-			System.out.println("Search: " + searchRatio);
+			System.out.println("SearchRatio: " + searchRatio);
 			System.out.println();
 		}
 	}
