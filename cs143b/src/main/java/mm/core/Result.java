@@ -5,8 +5,14 @@ public class Result{
 	public double searchRatio;
 	
 	public Result(double memoryUtilization, double searchRatio){
+		this.memoryUtilization = memoryUtilization;
+		this.searchRatio = searchRatio;
 	}
-
+	
+	public String toString(){
+		return "[" + memoryUtilization + "," + searchRatio + "]";
+	}
+	
 	public double getMemoryUtilization() {
 		return memoryUtilization;
 	}

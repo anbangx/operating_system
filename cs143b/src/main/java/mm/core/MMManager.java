@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class MMManager {
 	
 	public enum Strategy {
-		FIRST_FIT, BEST_FIT
+		FIRST_FIT, NEXT_FIT, BEST_FIT
 	}
 	
 	public static final int TAG_SIZE = 1;
@@ -18,6 +18,7 @@ public class MMManager {
 	private int totalByteSize;
 	private int firstHole;
 	private int lastHole;
+	private int resumeHole;
 	public int numHoleExamined = 0;
 
 	public MMManager() {
@@ -25,6 +26,7 @@ public class MMManager {
 		totalByteSize = 0;
 		firstHole = -1;
 		lastHole = -1;
+		resumeHole = -1;
 	}
 
 	public void init(int totalSize) {
@@ -45,6 +47,7 @@ public class MMManager {
 		totalByteSize = 0;
 		firstHole = -1;
 		lastHole = -1;
+		resumeHole = -1;
 		init(totalSize);
 	}
 
@@ -69,6 +72,7 @@ public class MMManager {
 		// 3. set firstHole/lastHole
 		firstHole = 0;
 		lastHole = 0;
+		resumeHole = 0;
 	}
 	
 	/**
@@ -85,8 +89,13 @@ public class MMManager {
 			case FIRST_FIT:
 				holeStartIdx = firstFit(size);
 				break;
+			case NEXT_FIT:
+				holeStartIdx = nextFit(size);
+				break;
 			case BEST_FIT:
 				holeStartIdx = bestFit(size);
+				break;
+			default:
 				break;
 		}
 		
@@ -127,6 +136,7 @@ public class MMManager {
 				setPrevHole(nextHole, prevHole);
 			if (holeStartIdx == firstHole) {
 				firstHole = nextHole;
+				resumeHole = firstHole;
 			}
 			if (holeStartIdx == lastHole) {
 				lastHole = prevHole;
@@ -165,9 +175,28 @@ public class MMManager {
 		}
 		return -1;
 	}
-
+	
 	/**
-	 * Algorithm2: Best-fit
+	 * Algorithm2: Next-fit
+	 */
+	public int nextFit(int requestSize) {
+		numHoleExamined = 0;
+		int curHole = resumeHole;
+		if(curHole == -1)	return -1;
+		while (curHole >= 0) {
+			numHoleExamined++;
+			if (requestSize < getBlockSize(curHole)){
+				resumeHole = curHole;
+				return curHole;
+			}
+			curHole = getNextHole(curHole);
+		}
+		resumeHole = firstHole;
+		return -1;
+	}
+	
+	/**
+	 * Algorithm3: Best-fit
 	 */
 	public int bestFit(int requestSize) {
 		numHoleExamined = 0;
@@ -225,6 +254,7 @@ public class MMManager {
 				setNextHole(curHoleStart, -1);
 				lastHole = curHoleStart;
 				firstHole = lastHole;
+				resumeHole = lastHole;
 			} else {
 				setPrevHole(curHoleStart, lastHole);
 				setNextHole(lastHole, curHoleStart);
@@ -252,8 +282,10 @@ public class MMManager {
 			setNextHole(getPrevHole(curHoleEnd), curHoleStart);
 			setPrevHole(getNextHole(curHoleEnd), curHoleStart);
 
-			if (curHoleEnd == firstHole)
+			if (curHoleEnd == firstHole){
 				firstHole = curHoleStart;
+				resumeHole = firstHole;
+			}
 			if (curHoleEnd == lastHole)
 				lastHole = curHoleStart;
 
@@ -301,6 +333,7 @@ public class MMManager {
 			setPrevHole(nextHole, prevHole);
 		if (curHole == firstHole) {
 			firstHole = nextHole;
+			resumeHole = firstHole;
 		}
 		if (curHole == lastHole) {
 			lastHole = prevHole;
