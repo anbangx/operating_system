@@ -22,7 +22,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/anbangx/API/jcommon-1.0.21.jar"/>
-	<classpathentry kind="lib" path="/home/anbangx/API/jfreechart-1.0.17.jar"/>
+	<classpathentry kind="lib" path="/Users/anbangx/workspace/operation_system/cs143b/lib/jcommon-1.0.21.jar"/>
+	<classpathentry kind="lib" path="/Users/anbangx/workspace/operation_system/cs143b/lib/jfreechart-1.0.17.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
