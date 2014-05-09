@@ -149,7 +149,7 @@ public class MMManager {
 		}
 
 		// debug
-		boolean debug = true;
+		boolean debug = false;
 		if (debug) {
 			System.out.print("Request " + size + " in [" + newHoleStartIdx
 					+ "," + newHoleEndIdx + "], ");
@@ -241,7 +241,8 @@ public class MMManager {
 			right = 1;
 		else
 			right = memoryBlock.unpack(curHoleEnd);
-
+		
+		boolean debug = false;
 		// 2. check
 		if (left >= 0 && right >= 0) {
 			// 2.1. both are occupied
@@ -261,9 +262,12 @@ public class MMManager {
 				lastHole = curHoleStart;
 			}
 			setNextHole(lastHole, -1);
-
-			System.out.println("Release " + blockSize + " in [" + curHoleStart
+			
+			if(debug){
+				System.out.println("Release " + blockSize + " in [" + curHoleStart
 					+ "," + curHoleEnd + "]");
+			}
+			
 			return curHoleStart;
 		} else if (left >= 0 && right < 0) {
 			// 2.2. left is occupid but right is not - merge with right hole
@@ -288,9 +292,12 @@ public class MMManager {
 			}
 			if (curHoleEnd == lastHole)
 				lastHole = curHoleStart;
-
-			System.out.println("Release " + blockSize + " in [" + curHoleStart
-					+ "," + rightHoleEnd + "]");
+			
+			if(debug){
+				System.out.println("Release " + blockSize + " in [" + curHoleStart
+						+ "," + rightHoleEnd + "]");
+			}
+			
 			return curHoleStart;
 		} else if (left < 0 && right >= 0) {
 			// 2.3. left is not occupid but right is - merge with left hole
@@ -301,9 +308,12 @@ public class MMManager {
 			memoryBlock.pack(-newBlockSize, leftHoleStart);
 			memoryBlock.pack(-newBlockSize, curHoleEnd - INTEGER_SIZE
 					* TAG_SIZE);
-
-			System.out.println("Release " + blockSize + " in [" + leftHoleStart
-					+ "," + curHoleEnd + "]");
+			
+			if(debug){
+				System.out.println("Release " + blockSize + " in [" + leftHoleStart
+						+ "," + curHoleEnd + "]");
+			}
+			
 			return leftHoleStart;
 		} else {
 			// 2.4. both are not occupied - merge with left and right holes
@@ -317,9 +327,11 @@ public class MMManager {
 					* TAG_SIZE);
 			// (2). remove right hole
 			removeHole(curHoleEnd);
-
-			System.out.println("Release " + blockSize + " in [" + leftHoleStart
-					+ "," + rightHoleEnd + "]");
+			
+			if(debug){
+				System.out.println("Release " + blockSize + " in [" + leftHoleStart
+						+ "," + rightHoleEnd + "]");
+			}
 			return leftHoleStart;
 		}
 	}

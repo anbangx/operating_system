@@ -10,7 +10,7 @@ import mm.core.Result;
 
 public class MMDriver {
 	
-	public static Random random = new Random(100);
+	public static Random random = new Random(0);
 	public static MMManager mmm = new MMManager();
 	
 	public final static int simSteps = 10000;
@@ -88,9 +88,9 @@ public class MMDriver {
 
 			allocatedBlocks.remove(p);
 			mmm.printOccupiedBlock(allocatedBlocks);
-			System.out.println("Utilization: " + utilization);
-			System.out.println("SearchRatio: " + searchRatio);
-			System.out.println();
+//			System.out.println("Utilization: " + utilization);
+//			System.out.println("SearchRatio: " + searchRatio);
+//			System.out.println();
 		}
 		return new Result(utilization, searchRatio);
 	}
