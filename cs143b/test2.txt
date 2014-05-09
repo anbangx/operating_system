@@ -1,6 +1,0 @@
-cr A 1
-cr B 2
-cr C 1
-req R1
-req R1
-de B
