@@ -5,7 +5,7 @@ public class Result{
 	public double searchRatio;
 	
 	public Result(double memoryUtilization, double searchRatio){
-		this.memoryUtilization = memoryUtilization;
+		this.memoryUtilization = memoryUtilization;  
 		this.searchRatio = searchRatio;
 	}
 	
