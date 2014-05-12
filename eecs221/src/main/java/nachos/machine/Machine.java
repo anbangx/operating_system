@@ -439,7 +439,7 @@ public final class Machine {
 
 	private static File baseDirectory, nachosDirectory, testDirectory;
 
-	private static String configFileName = "nachos.conf";
+	private static String configFileName = "/home/anbangx/workspace/operating_system/eecs221/src/main/java/nachos/proj0/nachos.conf";
 
 	private static final String help = "\n"
 			+ "Options:\n"

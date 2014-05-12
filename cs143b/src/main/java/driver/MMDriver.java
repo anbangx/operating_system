@@ -29,16 +29,14 @@ public class MMDriver {
 			XYLineChart.stats.clear();
 			XYLineChart.deviation = d;
 			ArrayList<Result> results1 = new ArrayList<Result>();
-			ArrayList<Result> results3 = new ArrayList<Result>();
+			ArrayList<Result> results2 = new ArrayList<Result>();
 			for (a = 100; a <= 600; a += 100) {
 				XYLineChart.means.add(a);
 				results1.add(runSimulator(a, d, Strategy.FIRST_FIT));
-				// results2.add(runSimulator(a, d, Strategy.NEXT_FIT));
-				results3.add(runSimulator(a, d, Strategy.BEST_FIT));
+				results2.add(runSimulator(a, d, Strategy.BEST_FIT));
 			}
 			XYLineChart.stats.put(Strategy.FIRST_FIT, results1);
-			// XYLineChart.stats.put(Strategy.NEXT_FIT, results2);
-			XYLineChart.stats.put(Strategy.BEST_FIT, results3);
+			XYLineChart.stats.put(Strategy.BEST_FIT, results2);
 			XYLineChart.createMemoryUtilChartPanel();
 			XYLineChart.createSearchRatioChartPanel();
 		}

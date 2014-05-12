@@ -42,7 +42,7 @@ public class PRDriver {
 		String parent = absolutePath.substring(0,absolutePath.lastIndexOf(File.separator));
 		
 		BufferedReader br = new BufferedReader(new FileReader(file));
-		File out = new File(parent + "/35086995.txt");
+		File out = new File(parent + "/sid.txt");
 		FileWriter fw = new FileWriter(out.getAbsoluteFile());
 		BufferedWriter bw = new BufferedWriter(fw);
 		
