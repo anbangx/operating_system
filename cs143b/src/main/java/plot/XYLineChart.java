@@ -42,7 +42,9 @@ public class XYLineChart extends JFrame {
 				xAxisLabel, yAxisLabel, dataset);
 
 		// save to file
-		File imageFile = new File("graph/MemoryUtilization/MemoryUtilization_d=" + deviation + ".png");
+		File imageFile = new File(
+				"graph/MemoryUtilization/MemoryUtilization_d=" + deviation
+						+ ".png");
 		int width = 640;
 		int height = 480;
 
@@ -58,7 +60,6 @@ public class XYLineChart extends JFrame {
 	private static XYDataset createMemoryUtilDataset() {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		XYSeries series1 = new XYSeries("First-Fit");
-		XYSeries series2 = new XYSeries("Next-Fit");
 		XYSeries series3 = new XYSeries("Best-Fit");
 
 		int size = means.size();
@@ -66,19 +67,19 @@ public class XYLineChart extends JFrame {
 			series1.add((double) means.get(i), stats.get(Strategy.FIRST_FIT)
 					.get(i).getMemoryUtilization());
 		}
-//		for (int i = 0; i < size; i++) {
-//			series2.add((double) means.get(i), stats.get(Strategy.NEXT_FIT)
-//					.get(i).getMemoryUtilization());
-//		}
+		// for (int i = 0; i < size; i++) {
+		// series2.add((double) means.get(i), stats.get(Strategy.NEXT_FIT)
+		// .get(i).getMemoryUtilization());
+		// }
 		for (int i = 0; i < size; i++) {
 			series3.add((double) means.get(i), stats.get(Strategy.BEST_FIT)
 					.get(i).getMemoryUtilization());
 		}
 
 		dataset.addSeries(series1);
-//		dataset.addSeries(series2);
+		// dataset.addSeries(series2);
 		dataset.addSeries(series3);
-		
+
 		return dataset;
 	}
 
@@ -93,7 +94,8 @@ public class XYLineChart extends JFrame {
 				xAxisLabel, yAxisLabel, dataset);
 
 		// save to file
-		File imageFile = new File("graph/SearchRatio/SearchRatio_d=" + deviation + ".png");
+		File imageFile = new File("graph/SearchRatio/SearchRatio_d="
+				+ deviation + ".png");
 		int width = 640;
 		int height = 480;
 
@@ -109,7 +111,6 @@ public class XYLineChart extends JFrame {
 	private static XYDataset createSearchRatioDataset() {
 		XYSeriesCollection dataset = new XYSeriesCollection();
 		XYSeries series1 = new XYSeries("First-Fit");
-		XYSeries series2 = new XYSeries("Next-Fit");
 		XYSeries series3 = new XYSeries("Best-Fit");
 
 		int size = means.size();
@@ -117,17 +118,17 @@ public class XYLineChart extends JFrame {
 			series1.add((double) means.get(i), stats.get(Strategy.FIRST_FIT)
 					.get(i).getSearchRatio());
 		}
-//		for (int i = 0; i < size; i++) {
-//			series2.add((double) means.get(i), stats.get(Strategy.NEXT_FIT)
-//					.get(i).getSearchRatio());
-//		}
+		// for (int i = 0; i < size; i++) {
+		// series2.add((double) means.get(i), stats.get(Strategy.NEXT_FIT)
+		// .get(i).getSearchRatio());
+		// }
 		for (int i = 0; i < size; i++) {
 			series3.add((double) means.get(i), stats.get(Strategy.BEST_FIT)
 					.get(i).getSearchRatio());
 		}
 
 		dataset.addSeries(series1);
-//		dataset.addSeries(series2);
+		// dataset.addSeries(series2);
 		dataset.addSeries(series3);
 
 		return dataset;
