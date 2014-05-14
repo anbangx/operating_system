@@ -3,10 +3,10 @@ package driver;
 import java.util.ArrayList;
 import java.util.Random;
 
-import plot.XYLineChart;
-import mm.core.MMManager;
-import mm.core.MMManager.Strategy;
-import mm.core.Result;
+import mm.MMManager;
+import mm.Result;
+import mm.XYLineChart;
+import mm.MMManager.Strategy;
 
 public class MMDriver {
 

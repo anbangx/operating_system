@@ -1,4 +1,4 @@
-package plot;
+package mm;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import mm.core.MMManager.Strategy;
-import mm.core.Result;
+import mm.MMManager.Strategy;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

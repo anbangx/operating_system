@@ -1,4 +1,4 @@
-package mm.core;
+package mm;
 
 import java.util.ArrayList;
 

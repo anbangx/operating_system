@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
 
-import pr.core.PRManager;
+import pr.PRManager;
 
 public class PRDriver {
 

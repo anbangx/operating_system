@@ -1,13 +1,7 @@
-package pr.core;
+package pr;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import pr.data.Inventory;
-import pr.data.PCB;
-import pr.data.RCB;
-import pr.data.ReadyList;
-import pr.data.Waiting;
 
 public class PRManager {
 	private PCB runningProcess;

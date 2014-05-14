@@ -1,4 +1,4 @@
-package mm.core;
+package mm;
 
 public class Result{
 	public double memoryUtilization;

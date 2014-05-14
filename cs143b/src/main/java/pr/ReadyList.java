@@ -1,4 +1,4 @@
-package pr.data;
+package pr;
 
 import java.util.HashMap;
 import java.util.Iterator;

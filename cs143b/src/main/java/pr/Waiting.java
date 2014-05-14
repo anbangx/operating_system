@@ -1,4 +1,4 @@
-package pr.data;
+package pr;
 
 public class Waiting {
 	public PCB pcb;
