@@ -70,7 +70,7 @@ public class FileSystem {
 			if(dirBlock[curSlotIdx] < 0){ // find free
 				// update name and index
 				dirBlock[curSlotIdx - 1] = convertStringToInt(name);
-				dirBlock[curSlotIdx] = curBlockIdx;
+				dirBlock[curSlotIdx] = (curBlockIdx - FILE_DESCRIPTOR_START_INDEX) * 4 + curReference / 4;
 			}
 			curSlotIdx += SLOT_SIZE;
 			if(curSlotIdx > MAX_INDEX_WITHIN_BLOCK){
@@ -86,12 +86,50 @@ public class FileSystem {
 		io.writeBlock(curDirIdx, dirBlock);
 	}
 	
+	public void destroy(String name){
+		// 1. search directory to find file descriptor
+		int curDirIdx = DIRECTORY_START_INDEX;
+		int curSlotIdx = 0; // 1st index {name, index} 
+		int[] dirBlock = io.readBlock(curDirIdx);
+		int nameToInt = convertStringToInt(name);
+		int fdIdx = -1;
+		int[] fdBlock = null;
+		while(curDirIdx < DIRECTORY_END_INDEX){
+			if(dirBlock[curSlotIdx] == nameToInt){ // find!
+				// 2. free file descriptor
+				fdIdx = curSlotIdx / 4 + 5;
+				int fdReference = curSlotIdx % 4;
+				fdBlock = io.readBlock(fdIdx);
+				fdBlock[fdReference] = -1;
+				// 3. update bitmap
+				for(int i = 1; i < 4; i++){
+					setBitMap(fdBlock[fdReference + i]);
+				}
+				// 4. remove directory entry
+				dirBlock[curSlotIdx + 1] = -1;
+			}
+			curSlotIdx += SLOT_SIZE;
+			if(curSlotIdx > MAX_INDEX_WITHIN_BLOCK){
+				// check next directory block
+				curDirIdx++;
+				dirBlock = io.readBlock(curSlotIdx);
+				curSlotIdx = 0;
+			}
+		}
+		
+		// 5. write back the updates to disk
+		io.writeBlock(fdIdx, fdBlock);
+		io.writeBlock(curDirIdx, dirBlock);
+	}
+	
 	public long getBitMap(){
 		int[] block = io.readBlock(0);
 		return convertToLong(block[0], block[1]);
 	}
 	
 	public void setBitMap(int i){
+		if(i == -1)
+			return;
 		long bitMap = getBitMap();
 		bitMap = bitMap | MASK[i];
 		int[] block = new int[64];
