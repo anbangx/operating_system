@@ -149,6 +149,62 @@ public class FileSystem {
 		return freeOPTIdx;
 	}
 	
+	public boolean close(int OPTIdx){
+		// 1. write buffer to disk
+		int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx]);
+		io.writeBlock(dataBlockIdx, OPT[OPTIdx].buffer);
+		
+		// 2. update file length in descriptor
+		int slotIdx = OPT[OPTIdx].index;
+		int[] fdBlock = getBlockFromSlotIdx(slotIdx);
+		fdBlock[slotIdx % 4] = OPT[OPTIdx].length;
+		
+		// 3. free OPT entry
+		OPT[OPTIdx].index = -1;
+		  
+		// 4. return status
+		return true;
+	}
+	
+	public String read(int OPTIdx, int count){
+		// 1. compute position in the r/w buffer
+		int currentPosition = OPT[OPTIdx].currentPosition;
+		int length = OPT[OPTIdx].length;
+		StringBuilder sb = new StringBuilder();
+		
+		if(currentPosition + count < length){ // not reach the end of buffer
+			// 2. read buffer
+			for(int i = 0; i < count; i++){
+				char c = OPT[OPTIdx].readCharFromBuffer(currentPosition + i);
+				sb.append(c);
+			}
+		}
+		return sb.toString();
+	}
+	
+	public int write(int OPTIdx, String text){
+		// 1. compute position in the r/w buffer
+		int currentPosition = OPT[OPTIdx].currentPosition;
+		
+		int len = text.length();
+		if(currentPosition + len <= 64){ // not reach the end of buffer
+			// 2. write text to buffer
+			for(int i = 0; i < len; i++){
+				OPT[OPTIdx].writeCharToBuffer(text.charAt(i), currentPosition + i);
+				OPT[OPTIdx].currentPosition++;
+				OPT[OPTIdx].length++;
+			}
+			// 3. write the buffer to disk block
+			int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx]);
+			io.writeBlock(dataBlockIdx, OPT[OPTIdx].buffer);
+			// 4. update file length in descriptor
+			int slotIdx = OPT[OPTIdx].index;
+			int[] fdBlock = getBlockFromSlotIdx(slotIdx);
+			fdBlock[0] = OPT[OPTIdx].length;
+		}
+		return len;
+	}
+	
 	public int getSlotIdx(String name){
 		int curDirIdx = DIRECTORY_START_INDEX;
 		int curSlotIdx = 0; // 1st index {name, index} 
@@ -169,15 +225,6 @@ public class FileSystem {
 		return -1;
 	}
 	
-	public int[] getBlockFromSlotIdx(int curSlotIdx){
-		int fdIdx = curSlotIdx / 4 + 5;
-		return io.readBlock(fdIdx);
-	}
-	
-	public int getReferenceFromSlotIdx(int curSlotIdx){
-		return curSlotIdx % 4;
-	}
-	
 	public int getFreeOPTEntryIdx(){
 		for(int i = 0; i < OPT.length; i++){
 			if(OPT[i].index < 0){
@@ -185,6 +232,22 @@ public class FileSystem {
 			}
 		}
 		return -1;
+	}
+	
+	public int getDataBlockIdxFromOPTEntry(OPTEntry entry){
+		int slotIdx = entry.index;
+		int[] fdBlock = getBlockFromSlotIdx(slotIdx);
+		int firstDataBlockIdx = fdBlock[slotIdx % 4 + 1];
+		return firstDataBlockIdx;
+	}
+	
+	public int[] getBlockFromSlotIdx(int curSlotIdx){
+		int fdIdx = curSlotIdx / 4 + 5;
+		return io.readBlock(fdIdx);
+	}
+	
+	public int getReferenceFromSlotIdx(int curSlotIdx){
+		return curSlotIdx % 4;
 	}
 	
 	public long getBitMap(){
@@ -238,5 +301,15 @@ public class FileSystem {
 	    ret[1] = (byte) ((a >> 16) & 0xFF);   
 	    ret[0] = (byte) ((a >> 24) & 0xFF);
 	    return ret;
+	}
+	
+	public int[] convertStringToIntArray(String s){
+		int len = s.length();
+		int num = len / 4;
+		int[] results = new int[num];
+		for(int i = 0; i < num; i++){
+			results[i] = convertStringToInt(s.substring(4 * i, 4));
+		}
+		return results;
 	}
 }

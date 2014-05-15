@@ -21,4 +21,12 @@ public class OPTEntry {
 		this.length = length;
 	}
 	
+	public void writeCharToBuffer(char c, int pos){
+		this.buffer[pos / 4] = (byte)c << (4 - pos % 4);
+	}
+	
+	public char readCharFromBuffer(int pos){
+		return (char)(this.buffer[pos / 4] >> (4 - pos % 4));
+	}
+	
 }
