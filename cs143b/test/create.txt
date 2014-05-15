@@ -1,8 +1,0 @@
-cr A 1
-cr B 2
-cr C 1
-
-init
-cr A 1
-cr A 2
-quit
