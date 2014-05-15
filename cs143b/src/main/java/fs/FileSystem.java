@@ -24,6 +24,10 @@ public class FileSystem {
 		OPT = new OPTEntry[100];
 	}
 	
+	public void execute(String line){
+		
+	}
+
 	public void init(){
 		// 1. initiate bitmap
 		setBitMap(0);
