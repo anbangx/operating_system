@@ -25,6 +25,7 @@ public class FileSystem {
 		for (int i = 0; i < 4; i++) {
 			OPT[i] = new OPTEntry();
 		}
+		OPT[0].index = 0;
 	}
 
 	public String execute(String line) {
@@ -53,6 +54,11 @@ public class FileSystem {
 			int count = Integer.parseInt(tokens[3]);
 			int num = this.write(OPTIdx, c, count);
 			return num + " bytes written";
+		} else if (command.equals("sk")) {
+			int OPTIdx = Integer.parseInt(tokens[1]);
+			int target = Integer.parseInt(tokens[2]);
+			this.seek(OPTIdx, target);
+			return "position is " + target;
 		} else if (command.equals("lsdisk")) {
 			return io.toString();
 		}
@@ -172,7 +178,7 @@ public class FileSystem {
 		// 2. allocate a free OPT entry
 		int freeOPTIdx = getFreeOPTEntryIdx();
 
-		// 3 fill in current position and file descriptor index
+		// 3. fill in current position and file descriptor index
 		OPT[freeOPTIdx].currentPosition = 0;
 		OPT[freeOPTIdx].index = slotIdx;
 
@@ -259,8 +265,8 @@ public class FileSystem {
 	}
 	
 	public void seek(int OPTIdx, int target){
-		int curDataBlockNum = OPT[OPTIdx].currentPosition % 64;
-		int targetDataBlockNum = target % 64;
+		int curDataBlockNum = OPT[OPTIdx].currentPosition / 64;
+		int targetDataBlockNum = target / 64;
 		if(curDataBlockNum != targetDataBlockNum){ // if the new position is not within the current block
 			int slotIdx = OPT[OPTIdx].index;
 			// 1. write the old buffer to disk

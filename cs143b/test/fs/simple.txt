@@ -1,5 +1,6 @@
 in
 cr ABC
 op ABC
-wr 0 c 10
-rd 0 3
+wr 1 c 10
+sk 1 0
+rd 1 3

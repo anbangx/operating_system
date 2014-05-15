@@ -22,11 +22,23 @@ public class OPTEntry {
 	}
 	
 	public void writeCharToBuffer(char c, int pos){
-		this.buffer[pos / 4] = (byte)c << (4 - pos % 4);
+		this.buffer[pos / 4] |= (byte)c << (pos % 4);
 	}
 	
 	public char readCharFromBuffer(int pos){
-		return (char)(this.buffer[pos / 4] >> (4 - pos % 4));
+		return (char)(this.buffer[pos / 4] >> pos % 4);
 	}
+
+	public static void test1(){
+		OPTEntry entry = new OPTEntry();
+		entry.writeCharToBuffer('B', 5);
+		char c = entry.readCharFromBuffer(5);
+		System.out.println(c);
+	}
+	
+	public static void main(String[] args){
+		test1();
+	}
+	
 	
 }
