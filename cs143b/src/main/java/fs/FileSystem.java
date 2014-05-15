@@ -2,7 +2,7 @@ package fs;
 
 public class FileSystem {
 	
-	private static final int DIRECTORY_START_INDEX = 1;
+	private static final int DIRECTORY_START_INDEX = 2;
 	private static final int DIRECTORY_END_INDEX = 4;
 	private static final int FILE_DESCRIPTOR_START_INDEX = 5;
 	private static final int FILE_DESCRIPTOR_END_INDEX = 10;
@@ -87,13 +87,14 @@ public class FileSystem {
 		
 		// 2. find a free directory entry
 		int curDirIdx = DIRECTORY_START_INDEX;
-		int curSlotIdx = 1; // 1st index {name, index} 
+		int curSlotIdx = 0; // 1st index {name, index} 
 		int[] dirBlock = io.readBlock(curDirIdx);
-		while(curDirIdx < DIRECTORY_END_INDEX){
-			if(dirBlock[curSlotIdx] < 0){ // find free
+		while(curDirIdx <= DIRECTORY_END_INDEX){
+			if(dirBlock[curSlotIdx + 1] < 0){ // find free
 				// update name and index
-				dirBlock[curSlotIdx - 1] = convertStringToInt(name);
-				dirBlock[curSlotIdx] = (curBlockIdx - FILE_DESCRIPTOR_START_INDEX) * 4 + curReference / 4;
+				dirBlock[curSlotIdx] = convertStringToInt(name);
+				dirBlock[curSlotIdx + 1] = (curBlockIdx - FILE_DESCRIPTOR_START_INDEX) * 4 + curReference / 4;
+				break;
 			}
 			curSlotIdx += SLOT_SIZE;
 			if(curSlotIdx > MAX_INDEX_WITHIN_BLOCK){
@@ -238,8 +239,8 @@ public class FileSystem {
 		int curSlotIdx = 0; // 1st index {name, index} 
 		int[] dirBlock = io.readBlock(curDirIdx);
 		int nameToInt = convertStringToInt(name);
-		while(curDirIdx < DIRECTORY_END_INDEX){
-			if(dirBlock[curSlotIdx] == nameToInt){ // find!
+		while(curDirIdx <= DIRECTORY_END_INDEX){
+			if(dirBlock[curSlotIdx + 1] == nameToInt){ // find!
 				return curSlotIdx;
 			}
 			curSlotIdx += SLOT_SIZE;
