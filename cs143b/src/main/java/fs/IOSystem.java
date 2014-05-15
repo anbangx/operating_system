@@ -41,10 +41,23 @@ public class IOSystem {
 	}
 
 	public void writeBlock(int i, int[] block) {
+		boolean debug = true;
+		if(debug){
+			System.out.println("Write " + convertIntArrayToBitRepresetation(block) + " into block " + i);
+		}
 		PackableMemory pm = ldisk.get(i);
 		for(int x = 0; x < block.length; x++){
 			pm.pack(block[x], 4 * x);
 		}
+	}
+	
+	public String convertIntArrayToBitRepresetation(int[] A){
+		StringBuilder sb = new StringBuilder("[");
+		for(int i = 0; i < A.length; i++){
+			sb.append(Integer.toBinaryString(A[i]) + ",");
+		}
+		sb.append("]");
+		return sb.toString();
 	}
 	
 	public int convertStringToInt(String name){
@@ -67,7 +80,7 @@ public class IOSystem {
 	public static void test1(){
 		IOSystem io = new IOSystem();
 		int[] write = new int[16];
-		write[0] = 1; //io.convertStringToInt("ABC");
+		write[0] = io.convertStringToInt("ABC"); 
 		io.writeBlock(0, write);
 		System.out.println("Write: " + Arrays.toString(write));
 		int[] read = io.readBlock(0);

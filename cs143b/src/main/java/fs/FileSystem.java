@@ -21,7 +21,10 @@ public class FileSystem {
 		for(int i = 62; i >= 0; i--){
 			MASK[i] = MASK[i+1] << 1;
 		}
-		OPT = new OPTEntry[100];
+		OPT = new OPTEntry[4];
+		for(int i = 0; i < 4; i++){
+			OPT[i] = new OPTEntry();
+		}
 	}
 	
 	public String execute(String line){
@@ -39,6 +42,17 @@ public class FileSystem {
 			String name = tokens[1];
 			int OPTIdx = this.open(name);
 			return name + " opened " + OPTIdx;
+		} else if(command.equals("rd")){
+			int OPTIdx = Integer.parseInt(tokens[1]);
+			int count = Integer.parseInt(tokens[2]);
+			String read = this.read(OPTIdx, count);
+			return read;
+		} else if(command.equals("wr")){
+			int OPTIdx = Integer.parseInt(tokens[1]);
+			char c = tokens[2].charAt(0);
+			int count = Integer.parseInt(tokens[3]);
+			int num = this.write(OPTIdx, c, count);
+			return num + " bytes written"; 
 		} else if(command.equals("lsdisk")){
 			return io.toString();
 		}
@@ -166,7 +180,8 @@ public class FileSystem {
 		int fileLength = fdBlock[slotIdx * 4];
 		int firstDataBlockIdx = fdBlock[slotIdx * 4 + 1];
 		OPT[freeOPTIdx].length = fileLength;
-		OPT[freeOPTIdx].buffer = io.readBlock(firstDataBlockIdx);
+		if(firstDataBlockIdx != -1)
+			OPT[freeOPTIdx].buffer = io.readBlock(firstDataBlockIdx);
 		
 		return freeOPTIdx;
 	}
@@ -204,12 +219,11 @@ public class FileSystem {
 		return sb.toString();
 	}
 	
-	public int write(int OPTIdx, String text){
+	public int write(int OPTIdx, char c, int count){
 		// 1. compute position in the r/w buffer
 		int currentPosition = OPT[OPTIdx].currentPosition;
 		
-		int len = text.length();
-		if(currentPosition + len <= 64){ // not reach the end of buffer
+		if(currentPosition + count <= 64){ // not reach the end of buffer
 			// if block doesn't exist
 			if(OPT[OPTIdx].index == -1){
 				// allocate new block
@@ -218,20 +232,21 @@ public class FileSystem {
 				OPT[OPTIdx].buffer = io.readBlock(newBlockIdx);
 			}
 			// 2. write text to buffer
-			for(int i = 0; i < len; i++){
-				OPT[OPTIdx].writeCharToBuffer(text.charAt(i), currentPosition + i);
+			for(int i = 0; i < count; i++){
+				OPT[OPTIdx].writeCharToBuffer(c, currentPosition + i);
 				OPT[OPTIdx].currentPosition++;
 				OPT[OPTIdx].length++;
 			}
 			// 3. write the buffer to disk block
 			int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx]);
 			io.writeBlock(dataBlockIdx, OPT[OPTIdx].buffer);
+			
 			// 4. update file length in descriptor
 			int slotIdx = OPT[OPTIdx].index;
 			int[] fdBlock = getBlockFromSlotIdx(slotIdx);
 			fdBlock[0] = OPT[OPTIdx].length;
 		}
-		return len;
+		return count;
 	}
 	
 	public int getSlotIdx(String name){
@@ -240,7 +255,7 @@ public class FileSystem {
 		int[] dirBlock = io.readBlock(curDirIdx);
 		int nameToInt = convertStringToInt(name);
 		while(curDirIdx <= DIRECTORY_END_INDEX){
-			if(dirBlock[curSlotIdx + 1] == nameToInt){ // find!
+			if(dirBlock[curSlotIdx] == nameToInt){ // find!
 				return curSlotIdx;
 			}
 			curSlotIdx += SLOT_SIZE;
@@ -301,10 +316,10 @@ public class FileSystem {
 			return;
 		long bitMap = getBitMap();
 		bitMap = bitMap | MASK[i];
-		int[] block = new int[64]; 
+		int[] block = new int[16]; 
 		block[0] = (int)(bitMap >> 32);
 		block[1] = (int)bitMap;
-		io.writeBlock(i, block);
+		io.writeBlock(0, block);
 	}
 	
 	public long convertToLong(int a, int b){
