@@ -1,0 +1,15 @@
+cr A 1
+req R1
+cr B 1
+to
+req R1
+
+init
+cr A 1
+req R1
+req R1
+
+init
+cr A 1
+req R5
+quit

@@ -1,0 +1,162 @@
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+to
+to
+to
+de p
+de q
+to
+to
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+to
+de w
+to
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+to
+to
+de w
+to
+de x
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+to
+de x
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+to
+de y
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+req R1
+to
+req R2
+to
+to
+rel R1
+to
+rel R2
+to
+to
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+req R1
+to
+req R1
+req R1
+to
+rel R1
+to
+rel R1
+to
+to
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+req R4
+to
+req R3
+req R4
+to
+req R3
+req R3
+to
+to
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+req R4
+to
+to
+req R3
+req R4
+req R3
+to
+de w
+to
+
+init
+cr x 2
+cr y 2
+cr z 1
+to
+cr p 1
+cr q 1
+cr w 2
+to
+to
+req R1
+to
+to
+req R1
+to
+de w
+to
+to
+quit

@@ -1,0 +1,7 @@
+cr A 1
+cr B 1
+cr C 1
+to
+to
+to
+quit

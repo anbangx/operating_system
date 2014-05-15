@@ -1,0 +1,19 @@
+cr A 1
+req R1
+cr B 1
+to
+req R1
+rel R1
+to
+
+init
+cr A 1
+rel T1
+
+init
+cr A 1
+req R1
+cr B 2
+req R1
+rel R1
+quit
