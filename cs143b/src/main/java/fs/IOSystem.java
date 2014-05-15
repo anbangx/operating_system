@@ -1,6 +1,7 @@
 package fs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class IOSystem {
 
@@ -12,10 +13,24 @@ public class IOSystem {
 	public IOSystem() {
 		ldisk = new ArrayList<PackableMemory>(L);
 		for(int i = 0; i < L; i++){
-			ldisk.add(new PackableMemory(B));
+			PackableMemory pm = new PackableMemory(B);
+			if(i > 0){
+				for(int j = 0; j < 16; j++){
+					pm.pack(-1, 4 * j);
+				}
+			}
+			ldisk.add(pm);
 		}
 	}
-
+	
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < 10; i++){
+			sb.append(i + ": " + Arrays.toString(readBlock(i)) + "\n");
+		}
+		return sb.toString();
+	}
+	
 	public int[] readBlock(int i) {
 		PackableMemory pm = ldisk.get(i);
 		int[] block = new int[16];
@@ -31,4 +46,5 @@ public class IOSystem {
 			pm.pack(block[0], i);
 		}
 	}
+	
 }

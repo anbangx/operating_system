@@ -45,7 +45,8 @@ public class FSDriver {
 				break;
 			}
 			// process the line.
-			fs.execute(line);
+			String output = fs.execute(line);
+			System.out.println(output);
 		}
 		input.close();
 	}

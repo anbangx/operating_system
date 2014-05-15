@@ -24,10 +24,27 @@ public class FileSystem {
 		OPT = new OPTEntry[100];
 	}
 	
-	public void execute(String line){
+	public String execute(String line){
+		String[] tokens = line.split(" ");
+		String command = tokens[0];
 		
+		if(command.equals("in")){
+			this.init();
+			return "disk initialized";
+		} else if(command.equals("cr")){
+			String name = tokens[1];
+			this.create(name);
+			return name + " created";
+		} else if(command.equals("op")){
+			String name = tokens[1];
+			int OPTIdx = this.open(name);
+			return name + " opened " + OPTIdx;
+		} else if(command.equals("lsdisk")){
+			return io.toString();
+		}
+		return "";
 	}
-
+	
 	public void init(){
 		// 1. initiate bitmap
 		setBitMap(0);
@@ -36,13 +53,13 @@ public class FileSystem {
 		setBitMap(3);	// directory
 		setBitMap(4);	// directory
 		
-		// 2. initiate the file descriptor for directory
+		// 2. initiate the directory
 		initDirectory();
 	}
 	
 	public void initDirectory(){
 		int[] block = io.readBlock(1);
-		block[0] = 0;
+		block[0] = 0; // length of files
 		block[1] = 2;
 		block[2] = 3;
 		block[3] = 4;
@@ -144,9 +161,9 @@ public class FileSystem {
 		OPT[freeOPTIdx].index = slotIdx;
 		
 		// 4. read block 0 of file into the r/w buffer(read-ahead)
-		int[] fsBlock = getBlockFromSlotIdx(slotIdx);
-		int fileLength = fsBlock[slotIdx % 4];
-		int firstDataBlockIdx = fsBlock[slotIdx % 4 + 1];
+		int[] fdBlock = getBlockFromSlotIdx(slotIdx);
+		int fileLength = fdBlock[slotIdx * 4];
+		int firstDataBlockIdx = fdBlock[slotIdx * 4 + 1];
 		OPT[freeOPTIdx].length = fileLength;
 		OPT[freeOPTIdx].buffer = io.readBlock(firstDataBlockIdx);
 		
@@ -192,6 +209,13 @@ public class FileSystem {
 		
 		int len = text.length();
 		if(currentPosition + len <= 64){ // not reach the end of buffer
+			// if block doesn't exist
+			if(OPT[OPTIdx].index == -1){
+				// allocate new block
+				int newBlockIdx = searchAndUpdateBitMap();
+				OPT[OPTIdx].index = newBlockIdx;
+				OPT[OPTIdx].buffer = io.readBlock(newBlockIdx);
+			}
 			// 2. write text to buffer
 			for(int i = 0; i < len; i++){
 				OPT[OPTIdx].writeCharToBuffer(text.charAt(i), currentPosition + i);
@@ -238,6 +262,18 @@ public class FileSystem {
 		return -1;
 	}
 	
+	public int searchAndUpdateBitMap(){
+		long bitmap = getBitMap();
+		for(int i = 0; i < 64; i++){
+			if((bitmap & MASK[i]) == 0){
+				// find! stop search
+				setBitMap(i);
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public int getDataBlockIdxFromOPTEntry(OPTEntry entry){
 		int slotIdx = entry.index;
 		int[] fdBlock = getBlockFromSlotIdx(slotIdx);
@@ -264,9 +300,9 @@ public class FileSystem {
 			return;
 		long bitMap = getBitMap();
 		bitMap = bitMap | MASK[i];
-		int[] block = new int[64];
+		int[] block = new int[64]; 
 		block[0] = (int)(bitMap >> 32);
-		block[1] = (int)(bitMap >> 32);
+		block[1] = (int)bitMap;
 		io.writeBlock(i, block);
 	}
 	
