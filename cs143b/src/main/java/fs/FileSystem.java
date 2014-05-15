@@ -11,6 +11,7 @@ public class FileSystem {
 	private static final int FILE_DESCRIPTOR_SIZE = 4;
 	
 	private IOSystem io;
+	private OPTEntry[] OPT;
 	private long[] MASK;
 	
 	public FileSystem(){
@@ -20,6 +21,7 @@ public class FileSystem {
 		for(int i = 62; i >= 0; i--){
 			MASK[i] = MASK[i+1] << 1;
 		}
+		OPT = new OPTEntry[100];
 	}
 	
 	public void init(){
@@ -120,6 +122,69 @@ public class FileSystem {
 		// 5. write back the updates to disk
 		io.writeBlock(fdIdx, fdBlock);
 		io.writeBlock(curDirIdx, dirBlock);
+	}
+	
+	public int open(String name){
+		// 1. search directory to find file descriptor
+		int slotIdx = getSlotIdx(name);
+		if(slotIdx < 0){
+			System.out.println(name + " doesn't exist!");
+			return -1;
+		}
+		
+		// 2. allocate a free OPT entry
+		int freeOPTIdx = getFreeOPTEntryIdx();
+		
+		// 3. fill in current position and file descriptor index
+		OPT[freeOPTIdx].currentPosition = 0;
+		OPT[freeOPTIdx].index = slotIdx;
+		
+		// 4. read block 0 of file into the r/w buffer(read-ahead)
+		int[] fsBlock = getBlockFromSlotIdx(slotIdx);
+		int fileLength = fsBlock[slotIdx % 4];
+		int firstDataBlockIdx = fsBlock[slotIdx % 4 + 1];
+		OPT[freeOPTIdx].length = fileLength;
+		OPT[freeOPTIdx].buffer = io.readBlock(firstDataBlockIdx);
+		
+		return freeOPTIdx;
+	}
+	
+	public int getSlotIdx(String name){
+		int curDirIdx = DIRECTORY_START_INDEX;
+		int curSlotIdx = 0; // 1st index {name, index} 
+		int[] dirBlock = io.readBlock(curDirIdx);
+		int nameToInt = convertStringToInt(name);
+		while(curDirIdx < DIRECTORY_END_INDEX){
+			if(dirBlock[curSlotIdx] == nameToInt){ // find!
+				return curSlotIdx;
+			}
+			curSlotIdx += SLOT_SIZE;
+			if(curSlotIdx > MAX_INDEX_WITHIN_BLOCK){
+				// check next directory block
+				curDirIdx++;
+				dirBlock = io.readBlock(curSlotIdx);
+				curSlotIdx = 0;
+			}
+		}
+		return -1;
+	}
+	
+	public int[] getBlockFromSlotIdx(int curSlotIdx){
+		int fdIdx = curSlotIdx / 4 + 5;
+		return io.readBlock(fdIdx);
+	}
+	
+	public int getReferenceFromSlotIdx(int curSlotIdx){
+		return curSlotIdx % 4;
+	}
+	
+	public int getFreeOPTEntryIdx(){
+		for(int i = 0; i < OPT.length; i++){
+			if(OPT[i].index < 0){
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	public long getBitMap(){
