@@ -26,14 +26,14 @@ public class IOSystem {
 	public byte[] saveDiskToBytes(){
 		byte[] bytes = new byte[L * B];
 		for(int i = 0; i < L; i++){
-			System.arraycopy(ldisk.get(i).mem, 0, bytes[i * B], 0, B);
+			System.arraycopy(ldisk.get(i).mem, 0, bytes, i * B, B); 
 		}
 		return bytes;
 	}
 	
 	public void restoreDiskFromBytes(byte[] bytes){
 		for(int i = 0; i < L; i++){
-			System.arraycopy(bytes[i * B], 0, ldisk.get(i).mem, 0, B);
+			System.arraycopy(bytes, i * B, ldisk.get(i).mem, 0, B);
 		}
 	}
 	
@@ -101,8 +101,16 @@ public class IOSystem {
 		int[] read = io.readBlock(0);
 		System.out.println("Read: " + Arrays.toString(read));
 	}
+	
+	public static void test2() {
+		IOSystem io = new IOSystem();
+		byte[] bytes = io.saveDiskToBytes();
+		System.out.println(io.toString());
+		io.restoreDiskFromBytes(bytes);
+		System.out.println(io.toString());
+	}
 
 	public static void main(String[] args) {
-		test1();
+		test2();
 	}
 }

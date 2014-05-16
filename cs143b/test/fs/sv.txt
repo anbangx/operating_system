@@ -2,5 +2,7 @@ in
 cr ABC
 op ABC
 wr 1 c 10
-sk 1 0
+sv save.txt
+in save.txt
+op ABC
 rd 1 3

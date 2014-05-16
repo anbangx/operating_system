@@ -2,9 +2,7 @@ package fs;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileSystem {
@@ -28,6 +26,10 @@ public class FileSystem {
 		for (int i = 62; i >= 0; i--) {
 			MASK[i] = MASK[i + 1] << 1;
 		}
+		initOPT();
+	}
+
+	public void initOPT() {
 		OPT = new OPTEntry[4];
 		for (int i = 0; i < 4; i++) {
 			OPT[i] = new OPTEntry();
@@ -84,7 +86,7 @@ public class FileSystem {
 			this.save(outputPath);
 			return "disk saved";
 		}
-		
+
 		return "";
 	}
 
@@ -211,6 +213,7 @@ public class FileSystem {
 		if (fdBlock[slotIdx * 4 + 1] == -1) {
 			int newBlockIdx = searchAndUpdateBitMap();
 			fdBlock[slotIdx * 4 + 1] = newBlockIdx;
+			io.writeBlock(slotIdx, fdBlock);
 		}
 
 		// 5. read block 0 of file into the r/w buffer(read-ahead)
@@ -232,7 +235,8 @@ public class FileSystem {
 		int slotIdx = OPT[OPTIdx].index;
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
 		fdBlock[slotIdx % 4] = OPT[OPTIdx].length;
-
+		io.writeBlock(slotIdx, fdBlock);
+		
 		// 3. free OPT entry
 		OPT[OPTIdx].index = -1;
 
@@ -307,29 +311,32 @@ public class FileSystem {
 		}
 		OPT[OPTIdx].currentPosition = target;
 	}
-	
-	public void save(String outputPath) throws Exception{
-		for(int i = 1; i < 4; i++){
+
+	public void save(String outputPath) throws Exception {
+		for (int i = 1; i < 4; i++) {
 			if (OPT[i].index > 0) {
 				close(i);
 			}
 		}
-		
-		//convert array of bytes into file
-	    FileOutputStream fileOuputStream = 
-                  new FileOutputStream(outputPath); 
-	    fileOuputStream.write(io.saveDiskToBytes());
-	    fileOuputStream.close();
+
+		// convert array of bytes into file
+		FileOutputStream fileOuputStream = new FileOutputStream(outputPath);
+		fileOuputStream.write(io.saveDiskToBytes());
+		fileOuputStream.close();
+
+		// init OPT
+		initOPT();
 	}
-	
-	public void restore(String inputPath) throws Exception{
+
+	public void restore(String inputPath) throws Exception {
 		byte[] bytes = new byte[64 * 64];
-		FileInputStream fileInputStream = new FileInputStream(new File(inputPath));
-	    fileInputStream.read(bytes);
-	    fileInputStream.close();
-	    io.restoreDiskFromBytes(bytes);
+		FileInputStream fileInputStream = new FileInputStream(new File(
+				inputPath));
+		fileInputStream.read(bytes);
+		fileInputStream.close();
+		io.restoreDiskFromBytes(bytes);
 	}
-	
+
 	public ArrayList<String> getAllFiles() {
 		ArrayList<String> files = new ArrayList<String>();
 

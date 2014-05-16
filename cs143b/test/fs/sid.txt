@@ -1,6 +1,8 @@
 disk initialized
-abc created
-foo created
-[abc, foo]
-foo destroyed
-[abc]
+ABC created
+ABC opened 1
+10 bytes written
+disk saved
+disk restored
+ABC opened 1
+
