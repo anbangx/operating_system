@@ -22,7 +22,21 @@ public class IOSystem {
 			ldisk.add(pm);
 		}
 	}
-
+	
+	public byte[] saveDiskToBytes(){
+		byte[] bytes = new byte[L * B];
+		for(int i = 0; i < L; i++){
+			System.arraycopy(ldisk.get(i).mem, 0, bytes[i * B], 0, B);
+		}
+		return bytes;
+	}
+	
+	public void restoreDiskFromBytes(byte[] bytes){
+		for(int i = 0; i < L; i++){
+			System.arraycopy(bytes[i * B], 0, ldisk.get(i).mem, 0, B);
+		}
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < 10; i++) {

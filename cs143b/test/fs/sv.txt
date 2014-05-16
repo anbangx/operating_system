@@ -1,0 +1,6 @@
+in
+cr ABC
+op ABC
+wr 1 c 10
+sk 1 0
+rd 1 3

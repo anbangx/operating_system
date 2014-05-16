@@ -1,5 +1,10 @@
 package fs;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileSystem {
@@ -30,13 +35,17 @@ public class FileSystem {
 		OPT[0].index = 0;
 	}
 
-	public String execute(String line) {
+	public String execute(String line) throws Exception {
 		String[] tokens = line.split(" ");
 		String command = tokens[0];
 
-		if (command.equals("in")) {
+		if (command.equals("in") && tokens.length == 1) {
 			this.init();
 			return "disk initialized";
+		} else if (command.equals("in") && tokens.length == 2) {
+			String inputPath = tokens[1];
+			this.restore(inputPath);
+			return "disk restored";
 		} else if (command.equals("cr")) {
 			String name = tokens[1];
 			this.create(name);
@@ -70,7 +79,12 @@ public class FileSystem {
 		} else if (command.equals("dr")) {
 			ArrayList<String> files = getAllFiles();
 			return files.toString();
+		} else if (command.equals("sv")) {
+			String outputPath = tokens[1];
+			this.save(outputPath);
+			return "disk saved";
 		}
+		
 		return "";
 	}
 
@@ -293,7 +307,29 @@ public class FileSystem {
 		}
 		OPT[OPTIdx].currentPosition = target;
 	}
-
+	
+	public void save(String outputPath) throws Exception{
+		for(int i = 1; i < 4; i++){
+			if (OPT[i].index > 0) {
+				close(i);
+			}
+		}
+		
+		//convert array of bytes into file
+	    FileOutputStream fileOuputStream = 
+                  new FileOutputStream(outputPath); 
+	    fileOuputStream.write(io.saveDiskToBytes());
+	    fileOuputStream.close();
+	}
+	
+	public void restore(String inputPath) throws Exception{
+		byte[] bytes = new byte[64 * 64];
+		FileInputStream fileInputStream = new FileInputStream(new File(inputPath));
+	    fileInputStream.read(bytes);
+	    fileInputStream.close();
+	    io.restoreDiskFromBytes(bytes);
+	}
+	
 	public ArrayList<String> getAllFiles() {
 		ArrayList<String> files = new ArrayList<String>();
 
