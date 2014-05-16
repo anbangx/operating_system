@@ -1,0 +1,6 @@
+disk initialized
+ABC created
+ABC opened 1
+10 bytes written
+position is 0
+ccc

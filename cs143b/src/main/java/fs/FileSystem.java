@@ -235,7 +235,7 @@ public class FileSystem {
 	public int write(int OPTIdx, char c, int count) {
 		// 1. compute position in the r/w buffer
 		int currentPosition = OPT[OPTIdx].currentPosition;
-//		int fdIdx = OPT[OPTIdx].index;
+		// int fdIdx = OPT[OPTIdx].index;
 
 		if (currentPosition + count <= 64) { // not reach the end of buffer
 			// if block doesn't exist
@@ -248,6 +248,7 @@ public class FileSystem {
 			// 2. write text to buffer
 			for (int i = 0; i < count; i++) {
 				OPT[OPTIdx].writeCharToBuffer(c, currentPosition + i);
+				char x = OPT[OPTIdx].readCharFromBuffer(currentPosition + i);
 				OPT[OPTIdx].currentPosition++;
 				OPT[OPTIdx].length++;
 			}
@@ -263,24 +264,26 @@ public class FileSystem {
 		}
 		return count;
 	}
-	
-	public void seek(int OPTIdx, int target){
+
+	public void seek(int OPTIdx, int target) {
 		int curDataBlockNum = OPT[OPTIdx].currentPosition / 64;
 		int targetDataBlockNum = target / 64;
-		if(curDataBlockNum != targetDataBlockNum){ // if the new position is not within the current block
+		if (curDataBlockNum != targetDataBlockNum) { // if the new position is
+														// not within the
+														// current block
 			int slotIdx = OPT[OPTIdx].index;
 			// 1. write the old buffer to disk
 			int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
 			int oldDataBlockIdx = fdBlock[slotIdx % 4 + curDataBlockNum];
 			io.writeBlock(oldDataBlockIdx, OPT[OPTIdx].buffer);
-			
+
 			// 2. read the new block to OPT
 			int newDataBlockIdx = fdBlock[slotIdx % 4 + targetDataBlockNum];
 			OPT[OPTIdx].buffer = io.readBlock(newDataBlockIdx);
 		}
 		OPT[OPTIdx].currentPosition = target;
 	}
-	
+
 	public int getSlotIdx(String name) {
 		int curDirIdx = DIRECTORY_START_INDEX;
 		int curSlotIdx = 0; // 1st index {name, index}

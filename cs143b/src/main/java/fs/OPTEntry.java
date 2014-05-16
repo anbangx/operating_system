@@ -22,13 +22,30 @@ public class OPTEntry {
 	}
 	
 	public void writeCharToBuffer(char c, int pos){
-		this.buffer[pos / 4] |= (byte)c << (pos % 4);
+		int oldInt = this.buffer[pos / 4];
+		byte[] bytes = intToByteArray(oldInt);
+		bytes[pos % 4] = (byte)c;
+		this.buffer[pos / 4] = fromByteArray(bytes);
 	}
 	
 	public char readCharFromBuffer(int pos){
-		return (char)(this.buffer[pos / 4] >> pos % 4);
+		int curInt = this.buffer[pos / 4];
+		byte[] bytes = intToByteArray(curInt);
+		return (char) bytes[pos % 4];
 	}
-
+	
+	public byte[] intToByteArray(int value) {
+	    return new byte[] {
+	            (byte)(value >>> 24),
+	            (byte)(value >>> 16),
+	            (byte)(value >>> 8),
+	            (byte)value};
+	}
+	
+	public int fromByteArray(byte[] bytes) {
+	     return bytes[0] << 24 | (bytes[1] & 0xFF) << 16 | (bytes[2] & 0xFF) << 8 | (bytes[3] & 0xFF);
+	}
+	
 	public static void test1(){
 		OPTEntry entry = new OPTEntry();
 		entry.writeCharToBuffer('B', 5);
@@ -36,8 +53,18 @@ public class OPTEntry {
 		System.out.println(c);
 	}
 	
+	public static void test2(){
+		OPTEntry entry = new OPTEntry();
+		String s = "BCADE";
+		for(int i = 0; i < s.length(); i++){
+			entry.writeCharToBuffer(s.charAt(i), i);
+			char c = entry.readCharFromBuffer(i);
+			System.out.println(c);
+		}
+	}
+	
 	public static void main(String[] args){
-		test1();
+		test2();
 	}
 	
 	
