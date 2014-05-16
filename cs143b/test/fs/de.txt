@@ -1,0 +1,6 @@
+in
+cr abc
+cr foo
+dr
+de foo
+dr

@@ -1,0 +1,7 @@
+in
+cr ABC
+op ABC
+wr 1 c 10
+wr 1 t 5
+sk 1 8
+rd 1 5

@@ -1,4 +1,6 @@
 disk initialized
-ABC created
+abc created
 foo created
-[ABC, foo]
+[abc, foo]
+foo destroyed
+[abc]

@@ -41,6 +41,10 @@ public class FileSystem {
 			String name = tokens[1];
 			this.create(name);
 			return name + " created";
+		} else if (command.equals("de")) {
+			String name = tokens[1];
+			this.destroy(name);
+			return name + " destroyed";
 		} else if (command.equals("op")) {
 			String name = tokens[1];
 			int OPTIdx = this.open(name);
@@ -144,7 +148,7 @@ public class FileSystem {
 		int nameToInt = convertStringToInt(name);
 		int fdIdx = -1;
 		int[] fdBlock = null;
-		while (curDirIdx < DIRECTORY_END_INDEX) {
+		while (curDirIdx <= DIRECTORY_END_INDEX) {
 			if (dirBlock[curSlotIdx] == nameToInt) { // find!
 				// 2. free file descriptor
 				fdIdx = curSlotIdx / 4 + 5;
@@ -157,6 +161,7 @@ public class FileSystem {
 				}
 				// 4. remove directory entry
 				dirBlock[curSlotIdx + 1] = -1;
+				break;
 			}
 			curSlotIdx += SLOT_SIZE;
 			if (curSlotIdx > MAX_INDEX_WITHIN_BLOCK) {
@@ -288,17 +293,17 @@ public class FileSystem {
 		}
 		OPT[OPTIdx].currentPosition = target;
 	}
-	
-	public ArrayList<String> getAllFiles(){
+
+	public ArrayList<String> getAllFiles() {
 		ArrayList<String> files = new ArrayList<String>();
-		
+
 		int curDirIdx = DIRECTORY_START_INDEX;
 		int curSlotIdx = 0; // 1st index {name, index}
 		int[] dirBlock = io.readBlock(curDirIdx);
-		while(curDirIdx <= DIRECTORY_END_INDEX){
+		while (curDirIdx <= DIRECTORY_END_INDEX) {
 			if (dirBlock[curSlotIdx + 1] != -1) { // find
 				String name = convertIntToString(dirBlock[curSlotIdx]);
-				files.add(name.substring(0, name.indexOf(' '))); 
+				files.add(name.substring(0, name.indexOf(' ')));
 			}
 			curSlotIdx += SLOT_SIZE;
 			if (curSlotIdx > MAX_INDEX_WITHIN_BLOCK) {
@@ -308,10 +313,10 @@ public class FileSystem {
 				curSlotIdx = 0;
 			}
 		}
-		
+
 		return files;
 	}
-	
+
 	public int getSlotIdx(String name) {
 		int curDirIdx = DIRECTORY_START_INDEX;
 		int curSlotIdx = 0; // 1st index {name, index}
@@ -392,7 +397,7 @@ public class FileSystem {
 
 	public int convertStringToInt(String name) {
 		StringBuilder s = new StringBuilder(name);
-		for(int i = name.length() - 1; i < 4; i++){
+		for (int i = name.length() - 1; i < 4; i++) {
 			s.append(" ");
 		}
 		byte[] buffer = s.toString().getBytes();
