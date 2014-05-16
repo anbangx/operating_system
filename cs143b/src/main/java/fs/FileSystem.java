@@ -1,5 +1,7 @@
 package fs;
 
+import java.util.ArrayList;
+
 public class FileSystem {
 
 	private static final int DIRECTORY_START_INDEX = 2;
@@ -61,6 +63,9 @@ public class FileSystem {
 			return "position is " + target;
 		} else if (command.equals("lsdisk")) {
 			return io.toString();
+		} else if (command.equals("dr")) {
+			ArrayList<String> files = getAllFiles();
+			return files.toString();
 		}
 		return "";
 	}
@@ -283,7 +288,30 @@ public class FileSystem {
 		}
 		OPT[OPTIdx].currentPosition = target;
 	}
-
+	
+	public ArrayList<String> getAllFiles(){
+		ArrayList<String> files = new ArrayList<String>();
+		
+		int curDirIdx = DIRECTORY_START_INDEX;
+		int curSlotIdx = 0; // 1st index {name, index}
+		int[] dirBlock = io.readBlock(curDirIdx);
+		while(curDirIdx <= DIRECTORY_END_INDEX){
+			if (dirBlock[curSlotIdx + 1] != -1) { // find
+				String name = convertIntToString(dirBlock[curSlotIdx]);
+				files.add(name.substring(0, name.indexOf(' '))); 
+			}
+			curSlotIdx += SLOT_SIZE;
+			if (curSlotIdx > MAX_INDEX_WITHIN_BLOCK) {
+				// check next directory block
+				curDirIdx++;
+				dirBlock = io.readBlock(curSlotIdx);
+				curSlotIdx = 0;
+			}
+		}
+		
+		return files;
+	}
+	
 	public int getSlotIdx(String name) {
 		int curDirIdx = DIRECTORY_START_INDEX;
 		int curSlotIdx = 0; // 1st index {name, index}
@@ -364,7 +392,9 @@ public class FileSystem {
 
 	public int convertStringToInt(String name) {
 		StringBuilder s = new StringBuilder(name);
-		s.setLength(4);
+		for(int i = name.length() - 1; i < 4; i++){
+			s.append(" ");
+		}
 		byte[] buffer = s.toString().getBytes();
 		return byteArrayToInt(buffer);
 	}

@@ -1,3 +1,4 @@
 in
 cr ABC
+cr foo
 dr
