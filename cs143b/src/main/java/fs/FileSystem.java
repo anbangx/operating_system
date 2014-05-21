@@ -92,14 +92,17 @@ public class FileSystem {
 
 	public void init() {
 		// 1. initiate bitmap
-		setBitMap(0);
-		setBitMap(1); // file descriptor for directory
-		setBitMap(2); // directory
-		setBitMap(3); // directory
-		setBitMap(4); // directory
-
+		// file descriptor for directory
+		// directory
+		// directory
+		// directory
+		for(int i = 0; i <= FILE_DESCRIPTOR_END_INDEX; i++){
+			setBitMap(i);
+		}
 		// 2. initiate the directory
 		initDirectory();
+		System.out.println(Long.toBinaryString(getBitMap()));
+		System.out.println();
 	}
 
 	public void initDirectory() {
@@ -209,11 +212,13 @@ public class FileSystem {
 		OPT[freeOPTIdx].index = slotIdx;
 
 		// 4 search first data block - update bitmap, update file descriptor
+		System.out.println(Long.toBinaryString(getBitMap()));
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
 		if (fdBlock[slotIdx * 4 + 1] == -1) {
 			int newBlockIdx = searchAndUpdateBitMap();
 			fdBlock[slotIdx * 4 + 1] = newBlockIdx;
-			io.writeBlock(slotIdx, fdBlock);
+			int fdIdx = slotIdx / 4 + 5;
+			io.writeBlock(fdIdx, fdBlock);
 		}
 
 		// 5. read block 0 of file into the r/w buffer(read-ahead)
@@ -235,7 +240,8 @@ public class FileSystem {
 		int slotIdx = OPT[OPTIdx].index;
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
 		fdBlock[slotIdx % 4] = OPT[OPTIdx].length;
-		io.writeBlock(slotIdx, fdBlock);
+		int fdIdx = slotIdx / 4 + 5;
+		io.writeBlock(fdIdx, fdBlock);
 		
 		// 3. free OPT entry
 		OPT[OPTIdx].index = -1;
@@ -264,7 +270,6 @@ public class FileSystem {
 		// 1. compute position in the r/w buffer
 		int currentPosition = OPT[OPTIdx].currentPosition;
 		// int fdIdx = OPT[OPTIdx].index;
-
 		if (currentPosition + count <= 64) { // not reach the end of buffer
 			// if block doesn't exist
 			// if( == -1){
@@ -314,14 +319,15 @@ public class FileSystem {
 
 	public void save(String outputPath) throws Exception {
 		for (int i = 1; i < 4; i++) {
-			if (OPT[i].index > 0) {
+			if (OPT[i].index != -1) {
 				close(i);
 			}
 		}
-
+		
 		// convert array of bytes into file
 		FileOutputStream fileOuputStream = new FileOutputStream(outputPath);
-		fileOuputStream.write(io.saveDiskToBytes());
+		byte[] temp = io.saveDiskToBytes();
+		fileOuputStream.write(temp);
 		fileOuputStream.close();
 
 		// init OPT
@@ -335,6 +341,7 @@ public class FileSystem {
 		fileInputStream.read(bytes);
 		fileInputStream.close();
 		io.restoreDiskFromBytes(bytes);
+		System.out.println();
 	}
 
 	public ArrayList<String> getAllFiles() {
