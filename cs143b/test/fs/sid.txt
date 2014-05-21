@@ -1,8 +1,0 @@
-disk initialized
-ABC created
-ABC opened 1
-10 bytes written
-disk saved
-disk restored
-ABC opened 1
-ccc

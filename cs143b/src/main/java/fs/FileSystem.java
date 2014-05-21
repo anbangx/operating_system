@@ -210,9 +210,9 @@ public class FileSystem {
 		// 3. fill in current position and file descriptor index
 		OPT[freeOPTIdx].currentPosition = 0;
 		OPT[freeOPTIdx].index = slotIdx;
+		OPT[freeOPTIdx].whichBlock = 0;
 
 		// 4 search first data block - update bitmap, update file descriptor
-		System.out.println(Long.toBinaryString(getBitMap()));
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
 		if (fdBlock[slotIdx * 4 + 1] == -1) {
 			int newBlockIdx = searchAndUpdateBitMap();
@@ -267,35 +267,46 @@ public class FileSystem {
 	}
 
 	public int write(int OPTIdx, char c, int count) {
-		// 1. compute position in the r/w buffer
-		int currentPosition = OPT[OPTIdx].currentPosition;
-		// int fdIdx = OPT[OPTIdx].index;
-		if (currentPosition + count <= 64) { // not reach the end of buffer
-			// if block doesn't exist
-			// if( == -1){
-			// // allocate new block
-			// int newBlockIdx = searchAndUpdateBitMap();
-			// OPT[OPTIdx].index = newBlockIdx;
-			// OPT[OPTIdx].buffer = io.readBlock(newBlockIdx);
-			// }
-			// 2. write text to buffer
-			for (int i = 0; i < count; i++) {
-				OPT[OPTIdx].writeCharToBuffer(c, currentPosition + i);
-				char x = OPT[OPTIdx].readCharFromBuffer(currentPosition + i);
+		int oldCount = count;
+		while(count > 0){
+			if(OPT[OPTIdx].currentPosition < 64){
+				// 1. write text to buffer
+				OPT[OPTIdx].writeCharToBuffer(c, OPT[OPTIdx].currentPosition);
 				OPT[OPTIdx].currentPosition++;
 				OPT[OPTIdx].length++;
+				count--;
+			} else{
+				// 2. write the buffer to disk block
+				int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx], OPT[OPTIdx].whichBlock);
+				io.writeBlock(dataBlockIdx, OPT[OPTIdx].buffer);
+
+				// 3. update file length in descriptor
+				int slotIdx = OPT[OPTIdx].index;
+				int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
+				fdBlock[0] = OPT[OPTIdx].length;
+				int fdIdx = slotIdx / 4 + 5;
+				
+				// 4. switch to next block
+				OPT[OPTIdx].whichBlock++;
+				//    search first data block - update bitmap, update file descriptor
+				if (fdBlock[slotIdx * 4 + OPT[OPTIdx].whichBlock + 1] == -1) {
+					int newBlockIdx = searchAndUpdateBitMap();
+					fdBlock[slotIdx * 4 + OPT[OPTIdx].whichBlock + 1] = newBlockIdx;
+				}
+				io.writeBlock(fdIdx, fdBlock);
+				
+				// 5. read block whichBlock of file into the r/w buffer(read-ahead)
+				int fileLength = fdBlock[slotIdx * 4];
+				int firstDataBlockIdx = fdBlock[slotIdx * 4 + OPT[OPTIdx].whichBlock + 1];
+				OPT[OPTIdx].length = fileLength;
+				if (firstDataBlockIdx != -1)
+					OPT[OPTIdx].buffer = io.readBlock(firstDataBlockIdx);
+				
+				OPT[OPTIdx].currentPosition = 0;
 			}
-
-			// // 3. write the buffer to disk block
-			// int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx]);
-			// io.writeBlock(dataBlockIdx, OPT[OPTIdx].buffer);
-
-			// // 4. update file length in descriptor
-			// int slotIdx = OPT[OPTIdx].index;
-			// int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
-			// fdBlock[0] = OPT[OPTIdx].length;
 		}
-		return count;
+		
+		return oldCount;
 	}
 
 	public void seek(int OPTIdx, int target) {
