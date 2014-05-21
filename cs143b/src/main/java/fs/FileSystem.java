@@ -233,7 +233,7 @@ public class FileSystem {
 
 	public boolean close(int OPTIdx) {
 		// 1. write buffer to disk
-		int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx], 1);
+		int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx], OPT[OPTIdx].whichBlock);
 		io.writeBlock(dataBlockIdx, OPT[OPTIdx].buffer);
 
 		// 2. update file length in descriptor
@@ -251,27 +251,33 @@ public class FileSystem {
 	}
 
 	public String read(int OPTIdx, int count) {
-		// 1. compute position in the r/w buffer
-		int currentPosition = OPT[OPTIdx].currentPosition;
-		int length = OPT[OPTIdx].length;
 		StringBuilder sb = new StringBuilder();
-
-		if (currentPosition + count < length) { // not reach the end of buffer
-			// 2. read buffer
-			for (int i = 0; i < count; i++) {
-				char c = OPT[OPTIdx].readCharFromBuffer(currentPosition + i);
+		while(count > 0 && OPT[OPTIdx].currentPosition < OPT[OPTIdx].length){
+			if(OPT[OPTIdx].currentPosition < 64 * (OPT[OPTIdx].whichBlock + 1)){
+				// read buffer
+				char c = OPT[OPTIdx].readCharFromBuffer(OPT[OPTIdx].currentPosition % 64);
 				sb.append(c);
+				OPT[OPTIdx].currentPosition++;
+				count--;
+			} else{
+				// switch to next block
+				OPT[OPTIdx].whichBlock++;
+				int dataBlockIdx = getDataBlockIdxFromOPTEntry(OPT[OPTIdx], OPT[OPTIdx].whichBlock);
+				if(dataBlockIdx == -1)
+					break;
+				OPT[OPTIdx].buffer = io.readBlock(dataBlockIdx);
 			}
 		}
+		
 		return sb.toString();
 	}
 
 	public int write(int OPTIdx, char c, int count) {
 		int oldCount = count;
 		while(count > 0){
-			if(OPT[OPTIdx].currentPosition < 64){
+			if(OPT[OPTIdx].currentPosition < 64 * (OPT[OPTIdx].whichBlock + 1)){
 				// 1. write text to buffer
-				OPT[OPTIdx].writeCharToBuffer(c, OPT[OPTIdx].currentPosition);
+				OPT[OPTIdx].writeCharToBuffer(c, OPT[OPTIdx].currentPosition % 64);
 				OPT[OPTIdx].currentPosition++;
 				OPT[OPTIdx].length++;
 				count--;
@@ -301,8 +307,6 @@ public class FileSystem {
 				OPT[OPTIdx].length = fileLength;
 				if (firstDataBlockIdx != -1)
 					OPT[OPTIdx].buffer = io.readBlock(firstDataBlockIdx);
-				
-				OPT[OPTIdx].currentPosition = 0;
 			}
 		}
 		
@@ -318,12 +322,13 @@ public class FileSystem {
 			int slotIdx = OPT[OPTIdx].index;
 			// 1. write the old buffer to disk
 			int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
-			int oldDataBlockIdx = fdBlock[slotIdx % 4 + curDataBlockNum];
+			int oldDataBlockIdx = fdBlock[slotIdx % 4 + curDataBlockNum + 1];
 			io.writeBlock(oldDataBlockIdx, OPT[OPTIdx].buffer);
 
 			// 2. read the new block to OPT
-			int newDataBlockIdx = fdBlock[slotIdx % 4 + targetDataBlockNum];
+			int newDataBlockIdx = fdBlock[slotIdx % 4 + targetDataBlockNum + 1];
 			OPT[OPTIdx].buffer = io.readBlock(newDataBlockIdx);
+			OPT[OPTIdx].whichBlock = targetDataBlockNum;
 		}
 		OPT[OPTIdx].currentPosition = target;
 	}
@@ -422,7 +427,7 @@ public class FileSystem {
 	public int getDataBlockIdxFromOPTEntry(OPTEntry entry, int whickBlock) {
 		int slotIdx = entry.index;
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
-		int firstDataBlockIdx = fdBlock[slotIdx % 4 + whickBlock];
+		int firstDataBlockIdx = fdBlock[slotIdx % 4 + whickBlock + 1];
 		return firstDataBlockIdx;
 	}
 

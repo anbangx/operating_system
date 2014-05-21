@@ -1,0 +1,17 @@
+disk initialized
+foo created
+foo opened 1
+20 bytes written
+20 bytes written
+20 bytes written
+20 bytes written
+20 bytes written
+20 bytes written
+position is 15
+aaaaabbbbb
+position is 35
+bbbbbccccc
+position is 55
+cccccddddd
+position is 75
+dddddeeeee
