@@ -1,0 +1,11 @@
+in
+cr abc
+cr foo
+dr
+sv save.txt
+in save.txt
+dr
+de foo
+dr
+de abc
+dr

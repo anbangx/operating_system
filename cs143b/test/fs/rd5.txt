@@ -1,0 +1,17 @@
+in
+cr foo
+op foo
+wr 1 a 20
+wr 1 b 20
+wr 1 c 20
+wr 1 d 20
+wr 1 e 20
+wr 1 f 20
+sk 1 15
+rd 1 10
+sk 1 35
+rd 1 10
+sk 1 55
+rd 1 10
+sk 1 75
+rd 1 10
