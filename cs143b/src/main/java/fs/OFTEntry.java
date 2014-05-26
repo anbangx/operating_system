@@ -1,6 +1,6 @@
 package fs;
 
-public class OPTEntry {
+public class OFTEntry {
 
 	public int[] buffer;
 	public int currentPosition;
@@ -8,7 +8,7 @@ public class OPTEntry {
 	public int length;
 	public int whichBlock;
 
-	public OPTEntry() {
+	public OFTEntry() {
 		this.buffer = new int[16];
 		this.currentPosition = -1;
 		this.index = -1;
@@ -40,14 +40,14 @@ public class OPTEntry {
 	}
 
 	public static void test1() {
-		OPTEntry entry = new OPTEntry();
+		OFTEntry entry = new OFTEntry();
 		entry.writeCharToBuffer('B', 5);
 		char c = entry.readCharFromBuffer(5);
 		System.out.println(c);
 	}
 
 	public static void test2() {
-		OPTEntry entry = new OPTEntry();
+		OFTEntry entry = new OFTEntry();
 		String s = "BCADE";
 		for (int i = 0; i < s.length(); i++) {
 			entry.writeCharToBuffer(s.charAt(i), i);
