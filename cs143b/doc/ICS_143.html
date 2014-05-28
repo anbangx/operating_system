@@ -1,0 +1,1746 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns="http://www.w3.org/TR/REC-html40"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 14">
+<meta name="Originator" content="Microsoft Word 14">
+<link rel="File-List" href="http://www.ics.uci.edu/%7Ebic/courses/145B/index_files/filelist.xml">
+<link rel="Edit-Time-Data" href="http://www.ics.uci.edu/%7Ebic/courses/145B/index_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>ICS 143</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Information and Computer Sciences</o:Author>
+  <o:LastAuthor>Bren School of Information and Computers Science</o:LastAuthor>
+  <o:Revision>9</o:Revision>
+  <o:TotalTime>6804</o:TotalTime>
+  <o:Created>2014-03-12T21:09:00Z</o:Created>
+  <o:LastSaved>2014-05-09T19:01:00Z</o:LastSaved>
+  <o:Pages>2</o:Pages>
+  <o:Words>710</o:Words>
+  <o:Characters>7006</o:Characters>
+  <o:Company>University of California, Irvine</o:Company>
+  <o:Lines>58</o:Lines>
+  <o:Paragraphs>15</o:Paragraphs>
+  <o:CharactersWithSpaces>7701</o:CharactersWithSpaces>
+  <o:Version>14.00</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]-->
+<link rel="themeData" href="http://www.ics.uci.edu/%7Ebic/courses/145B/index_files/themedata.thmx">
+<link rel="colorSchemeMapping" href="http://www.ics.uci.edu/%7Ebic/courses/145B/index_files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>125</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>EN-US</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:DontVertAlignCellWithSp/>
+   <w:DontBreakConstrainedForcedTables/>
+   <w:DontVertAlignInTxbx/>
+   <w:Word11KerningPairs/>
+   <w:CachedColBalance/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267">
+  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="99" Name="No List"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-536870145 1107305727 0 0 415 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 1 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+h2
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 2 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+h3
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Heading 3 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{mso-style-unhide:no;
+	color:#3366FF;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-unhide:no;
+	color:#9900FF;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{mso-style-priority:34;
+	mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-type:export-only;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-add-space:auto;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 1";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#365F91;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Heading 3";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.go
+	{mso-style-name:go;
+	mso-style-unhide:no;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:31200376;
+	mso-list-template-ids:-225521162;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:223295639;
+	mso-list-type:hybrid;
+	mso-list-template-ids:194904284 67698691 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.5in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.5in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.0in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.5in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:5.0in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l1:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:5.5in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2
+	{mso-list-id:237599148;
+	mso-list-type:hybrid;
+	mso-list-template-ids:642647440 67698703 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l2:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.5in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.5in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.0in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.5in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:5.0in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l3
+	{mso-list-id:701053307;
+	mso-list-template-ids:-866590040;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1006517731;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-502110068 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l4:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;}
+@list l4:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:1.75in;
+	text-indent:-9.0pt;}
+@list l4:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:3.25in;
+	text-indent:-9.0pt;}
+@list l4:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.75in;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.25in;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:4.75in;
+	text-indent:-9.0pt;}
+@list l5
+	{mso-list-id:1194152166;
+	mso-list-template-ids:2138609884;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6
+	{mso-list-id:1213155260;
+	mso-list-template-ids:1437100072;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+@list l6:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l6:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7
+	{mso-list-id:1277978257;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1346530898 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l7:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;}
+@list l7:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;}
+@list l7:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:1.75in;
+	text-indent:-9.0pt;}
+@list l7:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.25in;}
+@list l7:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-.25in;}
+@list l7:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:3.25in;
+	text-indent:-9.0pt;}
+@list l7:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.75in;
+	text-indent:-.25in;}
+@list l7:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.25in;
+	text-indent:-.25in;}
+@list l7:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:4.75in;
+	text-indent:-9.0pt;}
+@list l8
+	{mso-list-id:1335113442;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1531319572 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l8:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;}
+@list l8:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;}
+@list l8:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:1.75in;
+	text-indent:-9.0pt;}
+@list l8:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.25in;}
+@list l8:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-.25in;}
+@list l8:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:3.25in;
+	text-indent:-9.0pt;}
+@list l8:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.75in;
+	text-indent:-.25in;}
+@list l8:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.25in;
+	text-indent:-.25in;}
+@list l8:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	margin-left:4.75in;
+	text-indent:-9.0pt;}
+@list l9
+	{mso-list-id:1407803009;
+	mso-list-template-ids:-1392336368;}
+@list l9:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l9:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Wingdings;}
+@list l9:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l10
+	{mso-list-id:1529836460;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-749856966 67698703 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l10:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;}
+@list l10:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l10:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l10:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:2.5in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l10:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l10:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:3.5in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l10:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.0in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l10:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:4.5in;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l10:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:5.0in;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l11
+	{mso-list-id:1721246368;
+	mso-list-template-ids:-57379254;}
+@list l11:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l11:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l11:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12
+	{mso-list-id:1874075389;
+	mso-list-template-ids:-288348594;}
+@list l12:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l12:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13
+	{mso-list-id:1879468134;
+	mso-list-template-ids:-691362424;}
+@list l13:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l13:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body style="tab-interval:.5in" alink="#000066" background="file:///C:\Users\bic\Desktop\blutextb.gif" bgcolor="white" lang="EN-US" link="#3366FF" vlink="#9900FF">
+
+<div class="WordSection1">
+
+<h1 style="text-align:center" align="center"><span style="mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:#003399">CS 143B -- SQ 2014 &nbsp; <o:p></o:p></span></h1>
+
+<h1 style="text-align:center" align="center"><span style="mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:#003399">
+
+<hr size="2" width="100%" align="center">
+
+</span></h1>
+
+<h1 style="text-align:center" align="center"><span style="mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:#003399">
+
+<hr size="2" width="100%" align="center">
+
+</span></h1>
+
+<h2><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">General
+Course Information<o:p></o:p></span></h2>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Office
+Hours:<o:p></o:p></span></h3>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l5 level1 lfo1;tab-stops:list .5in"><b><span style="mso-ansi-language:ES-MX" lang="ES-MX">Instructor</span></b><span style="mso-ansi-language:ES-MX" lang="ES-MX">: <span class="SpellE">Lubomir</span> <span class="SpellE">Bic</span>, </span><a href="mailto:bic@ics.uci.edu"><span style="mso-ansi-language:ES-MX" lang="ES-MX">bic@ics.uci.edu</span></a><span style="mso-ansi-language:ES-MX" lang="ES-MX"><o:p></o:p></span></li>
+</ul>
+
+<p class="MsoNormal" style="margin-left:.5in"><span style="color:#003399">Office
+Hours: Tuesdays, 12:30-1:30, or by appointment, DBH 3224 <o:p></o:p></span></p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#1F497D;mso-themecolor:text2;mso-margin-top-alt:
+     auto;mso-margin-bottom-alt:auto;mso-list:l12 level1 lfo2;tab-stops:list .5in"><b><span style="color:#003399">Teaching Assistant</span></b><span style="color:
+     #003399">: Kiyoshi Nakayama, <a href="mailto:kiyoasis@gmail.com">kiyoasis@gmail.com</a>
+     </span><s><o:p></o:p></s></li>
+</ul>
+
+<p class="MsoNormal" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+margin-left:.5in"><span style="color:#1F497D;mso-themecolor:text2">Office Hours:
+Wed 10-11, Fri 1-2, CS1, Rm. 424 <o:p></o:p></span></p>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l11 level1 lfo3;tab-stops:list .5in"><b>Prerequisites</b>:<o:p></o:p></li>
+</ul>
+
+<p class="MsoNormal" style="margin-left:.5in"><span style="color:#003399">CS 143A<o:p></o:p></span></p>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Textbook:<o:p></o:p></span></h3>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l3 level1 lfo4;tab-stops:list .5in">L. Bic, A. Shaw, <b><a href="http://www.ics.uci.edu/%7Ebic/os">Operating Systems Principles</a>, </b>Prentice-Hall,
+     2003 (ISBN: 0130266116)<o:p></o:p></li>
+</ul>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Course
+Objective:<o:p></o:p></span></h3>
+
+<p class="MsoNormal" style="margin-left:.5in"><span style="color:#003399">The main
+objective is to apply the principles of operating systems studied in CS 143A in
+practice. We will design and implement several important components of
+a&nbsp;simple operating system. <o:p></o:p></span></p>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Course
+Structure:<o:p></o:p></span></h3>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l13 level1 lfo5;tab-stops:list .5in">There will be a set of
+     projects to complete, each dealing with a different part of the operating
+     system. These will be discussed in class. On the due date, you have to
+     turn in your deliverables (design documentation, commented code, report,
+     depending on project). The functionality of some projects must also be
+     demonstrated by running them with a given set of test data.<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l13 level1 lfo5;tab-stops:list .5in">You may work
+     individually or in teams of two students. Individuals and teams will carry
+     out the same projects but the assigned workload is increased for teams.<o:p></o:p></li>
+</ul>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Schedule
+and Grading:<o:p></o:p></span></h3>
+
+<p class="MsoNormal" style="margin-left:.5in"><span style="color:#003399">The
+grade will be based entirely on the course projects; <b>no exams</b> will be
+given. <br>
+Final grade is determined as follows: <o:p></o:p></span></p>
+
+<ul type="disc">
+ <ul type="circle">
+  <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo6;tab-stops:list 1.0in">85-100%: A+-<o:p></o:p></li>
+  <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo6;tab-stops:list 1.0in">70-84%:&nbsp;&nbsp;
+      B+-<o:p></o:p></li>
+  <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+      auto;mso-list:l0 level2 lfo6;tab-stops:list 1.0in">50-69%:&nbsp;&nbsp;
+      C+-<o:p></o:p></li>
+ </ul>
+</ul>
+
+<p class="MsoNormal" style="margin-left:.5in"><span style="color:#003399">(Each +
+or - corresponds to approximately 1/3 of a grade.) <br>
+&nbsp; <o:p></o:p></span></p>
+
+<table class="MsoNormalTable" style="width:59.36%;mso-cellspacing:1.5pt;margin-left:.5in;mso-yfti-tbllook:
+ 1184;mso-padding-alt:3.75pt 3.75pt 3.75pt 3.75pt" border="1" cellpadding="0" width="59%">
+ <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+  <td colspan="3" style="width:37.7%;padding:3.75pt 3.75pt 3.75pt 3.75pt" valign="top" width="37%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><o:p>&nbsp;</o:p></b></p>
+  </td>
+  <td colspan="2" style="width:27.96%;background:#33CCFF;
+  padding:3.75pt 3.75pt 3.75pt 3.75pt" valign="top" width="27%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b>Due dates<o:p></o:p></b></p>
+  </td>
+  <td colspan="4" style="width:33.48%;background:#33CCFF;
+  padding:3.75pt 3.75pt 3.75pt 3.75pt" valign="top" width="33%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b>Percent of final
+  grade<o:p></o:p></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:1">
+  <td style="width:4.48%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="4%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="color:#000099">#</span><o:p></o:p></b></p>
+  </td>
+  <td style="width:16.84%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="16%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="color:#000099">Project</span><o:p></o:p></b></p>
+  </td>
+  <td style="width:15.96%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="15%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="color:#000099">Presentation&nbsp;</span> <br>
+  <span style="color:#000099">starts</span><o:p></o:p></b></p>
+  </td>
+  <td style="width:14.54%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="14%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b>Preliminary<br>
+  document <o:p></o:p></b></p>
+  </td>
+  <td style="width:13.2%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="13%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="color:#000099">Final <br>
+  document +<br>
+  demo/report</span><o:p></o:p></b></p>
+  </td>
+  <td style="width:11.02%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="11%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="color:#000099">Preliminary<br>
+  document&nbsp;</span><o:p></o:p></b></p>
+  </td>
+  <td style="width:8.22%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="8%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b>Final<br>
+  document<o:p></o:p></b></p>
+  </td>
+  <td style="width:7.1%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="7%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b><span style="color:#000099">Demo/</span> <br>
+  <span style="color:#000099">report</span><o:p></o:p></b></p>
+  </td>
+  <td style="width:6.48%;background:#99FFFF;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="6%">
+  <p class="MsoNormal" style="text-align:center" align="center"><b>Total<o:p></o:p></b></p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:2">
+  <td style="width:4.48%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="4%">
+  <p class="MsoNormal">1</p>
+  </td>
+  <td style="width:16.84%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="16%">
+  <p class="MsoNormal">Process and Resource <br>
+  Management</p>
+  </td>
+  <td style="width:15.96%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="15%">
+  <p class="MsoNormal"><span class="SpellE">Tu</span> 4/1</p>
+  </td>
+  <td style="width:14.54%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="14%">
+  <p class="MsoNormal"><span class="SpellE">Tu</span> 4/15</p>
+  </td>
+  <td style="width:13.2%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="13%">
+  <p class="MsoNormal">Mo 4/21</p>
+  </td>
+  <td style="width:11.02%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="11%">
+  <p class="MsoNormal">10%</p>
+  </td>
+  <td style="width:8.22%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="8%">
+  <p class="MsoNormal">5%</p>
+  </td>
+  <td style="width:7.1%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="7%">
+  <p class="MsoNormal">demo<br>
+  18%</p>
+  </td>
+  <td style="width:6.48%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="6%">
+  <p class="MsoNormal">33%</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:3">
+  <td style="width:4.48%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="4%">
+  <p class="MsoNormal">2</p>
+  </td>
+  <td style="width:16.84%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="16%">
+  <p class="MsoNormal">Main Memory </p>
+  <p class="MsoNormal">Management </p>
+  </td>
+  <td style="width:15.96%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="15%">
+  <p class="MsoNormal"><span class="SpellE">Tu</span> 4/22</p>
+  </td>
+  <td style="width:14.54%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="14%">
+  <p class="MsoNormal"><span class="SpellE">Tu</span> 5/6</p>
+  </td>
+  <td style="width:13.2%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="13%">
+  <p class="MsoNormal">Mo 5/12</p>
+  </td>
+  <td style="width:11.02%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="11%">
+  <p class="MsoNormal">10%</p>
+  </td>
+  <td style="width:8.22%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="8%">
+  <p class="MsoNormal">5%</p>
+  </td>
+  <td style="width:7.1%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="7%">
+  <p class="MsoNormal">report<br>
+  18%</p>
+  </td>
+  <td style="width:6.48%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="6%">
+  <p class="MsoNormal">33%</p>
+  </td>
+ </tr>
+ <tr style="mso-yfti-irow:4;mso-yfti-lastrow:yes">
+  <td style="width:4.48%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="4%">
+  <p class="MsoNormal">3</p>
+  </td>
+  <td style="width:16.84%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="16%">
+  <p class="MsoNormal">File System</p>
+  </td>
+  <td style="width:15.96%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="15%">
+  <p class="MsoNormal"><span class="SpellE">Tu</span> 5/13</p>
+  </td>
+  <td style="width:14.54%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="14%">
+  <p class="MsoNormal"><span class="SpellE">Tu</span> 5/27</p>
+  </td>
+  <td style="width:13.2%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="13%">
+  <p class="MsoNormal">Mo 6/2</p>
+  </td>
+  <td style="width:11.02%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="11%">
+  <p class="MsoNormal">10%</p>
+  </td>
+  <td style="width:8.22%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="8%">
+  <p class="MsoNormal">5%</p>
+  </td>
+  <td style="width:7.1%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="7%">
+  <p class="MsoNormal">demo<br>
+  19%</p>
+  </td>
+  <td style="width:6.48%;padding:3.75pt 3.75pt 3.75pt 3.75pt" width="6%">
+  <p class="MsoNormal">34%</p>
+  </td>
+ </tr>
+</tbody></table>
+
+<p style="margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt"><b><span style="color:#003399">Preliminary Document</span></b><span style="color:#003399"> <br>
+A written document consisting of: <o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpFirst" style="mso-margin-bottom-alt:auto;
+margin-left:1.0in;mso-add-space:auto;text-indent:-.25in;mso-list:l10 level1 lfo7"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">A high-level design description:
+main data structures, functions, system architecture (calling hierarchy, which
+functions access which data structures); <o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.0in;mso-add-space:auto;text-indent:-.25in;mso-list:l10 level1 lfo7"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Pseudo code for
+entire project. <o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpLast" style="mso-margin-top-alt:auto;mso-margin-bottom-alt:
+auto;margin-left:1.5in;mso-add-space:auto;text-indent:-.25in;mso-list:l1 level1 lfo8"><!--[if !supportLists]--><span style="font-family:&quot;Courier New&quot;;mso-fareast-font-family:&quot;Courier New&quot;;
+color:#003399"><span style="mso-list:Ignore">o<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/hi-level%20document.doc">Sample outline of design document</a><o:p></o:p></span></p>
+
+<p style="margin-top:5.0pt;margin-right:0in;margin-bottom:0in;margin-left:.5in;
+margin-bottom:.0001pt"><b><span style="color:#003399">Final Document</span></b><span style="color:#003399"> <br>
+A written document consisting of: <o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpFirst" style="mso-margin-bottom-alt:auto;
+margin-left:1.0in;mso-add-space:auto;text-indent:-.25in;mso-list:l2 level1 lfo9"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">A high-level design
+description (an extended/final version of preliminary document), test
+cases/results<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpLast" style="mso-margin-bottom-alt:auto;margin-left:
+1.0in;mso-add-space:auto;text-indent:-.25in;mso-list:l2 level1 lfo9"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Executable code with
+extensive comments <o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-left:.5in"><b><span style="color:#003399">Demo</span></b><span style="color:#003399"> <br>
+On or before due date, submit your executable code to EEE. See TA to demonstrate
+functionality. <o:p></o:p></span></p>
+
+<p style="margin-left:.5in"><b><span style="color:#003399">Report</span></b><span style="color:#003399"> <br>
+Present and analyze results of simulation experiments. The
+specific&nbsp;requirements/expectations will be discussed in class. <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/sample_report.doc">Sample report</a><o:p></o:p></span></p>
+
+<p style="margin-left:.5in"><b><span style="color:#003399">Late work</span></b><span style="color:#003399"> <br>
+Late work will be accepted, however, a penalty of 5% per day will be imposed.<o:p></o:p></span></p>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Plagiarism<o:p></o:p></span></h3>
+
+<blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+
+<p class="MsoNormal"><span style="color:#003399">You are not allowed to reuse in
+your projects any portion of a design or code developed by another person or
+group (during this quarter or any previous quarters). Any violation of this
+rule will result in a </span><span style="color:#000099">final grade of F </span><span style="color:#003399">for this course.<o:p></o:p></span></p>
+
+</blockquote>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Grades
+<o:p></o:p></span></h3>
+
+<div style="margin-left:30.0pt">
+
+<p class="MsoNormal"><span style="color:#003399">Grades are posted periodically
+via the Electronic Education Environment website: <a href="https://eee.uci.edu%20%0d/">https://eee.uci.edu </a></span><span class="MsoHyperlink"><o:p></o:p></span></p>
+
+</div>
+
+<h2 style="text-align:center" align="center"><span style="mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:#003399"><o:p>&nbsp;</o:p></span></h2>
+
+<h2 style="text-align:center" align="center"><span style="mso-fareast-font-family:
+&quot;Times New Roman&quot;;color:#003399">
+
+<hr size="2" width="100%" align="center">
+
+</span></h2>
+
+<h2><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">Project-Specific
+Information<o:p></o:p></span></h2>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">1.
+Process and Resource Management<o:p></o:p></span></h3>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l9 level1 lfo10;tab-stops:list .5in">Textbook, pages 482-491<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l9 level1 lfo10;tab-stops:list .5in"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/LEC/For-WEB/proj2.ppt">Lecture
+     Notes</a> (PowerPoint)<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l9 level1 lfo10;tab-stops:list .5in"><a href="http://replay.uci.edu/public/winter2012/Bic-OS-proj2A_-_Flash_%28Large%29_-_20120201_01.21.18AM.html">Lecture
+     1</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;text-align:justify;mso-list:l9 level1 lfo10;tab-stops:list .5in"><a href="http://replay.uci.edu/public/winter2012/Bic-OS-proj2B_-_Flash_%28Large%29_-_20120201_01.34.13AM.html">Lecture
+     2</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;text-align:justify;mso-list:l9 level1 lfo10;tab-stops:list .5in"><a href="http://replay.uci.edu/public/winter2012/Bic-OS-proj2C_-_Flash_%28Large%29_-_20120201_01.45.38AM.html">Lecture
+     3</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l9 level1 lfo10;tab-stops:list .5in"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/Process-Project/Proc-shell.html">Shell
+     Specification</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l9 level1 lfo10;tab-stops:list .5in">Sample test case: If
+     your program reads the following <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/Process-Project/test-sample.txt">input</a>
+     file, it should produce a file that looks something like this: <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/Process-Project/output-sample.txt">output</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-list:l9 level1 lfo10;tab-stops:
+     list .5in">On due date, submit the following to EEE (<a href="http://www.ics.uci.edu/%7Ebic/courses/145B/Misc/dropbox_primer.pdf">how to submit to EEE</a>): <o:p></o:p></li>
+</ul>
+
+<p class="MsoListParagraphCxSpFirst" style="margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l7 level1 lfo11"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Preliminary document<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l7 level1 lfo11"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Final document<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpLast" style="margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l7 level1 lfo11"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">3.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Demonstrate
+functionality (time window/place for demos: TBD). See <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/Misc/Protocol%20for%20Project%20Demonstration.pdf">protocol</a> and <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/Misc/What%20will%20be%20tested.pdf">expectations</a><o:p></o:p></span></p>
+
+<h3><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;color:#003399">2.
+Main Memory Management<o:p></o:p></span></h3>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in">Textbook, pages 492-495<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/LEC/For-WEB/proj3.pptx">Lecture
+     Notes</a> (PowerPoint)<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/summer2011/Bic-OS-MM-proj1_-_Flash_%28Large%29_-_20110914_12.17.20PM.html">Lecture
+     1</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/summer2011/Bic-OS-MM-proj2_-_Flash_%28Large%29_-_20110914_12.37.50PM.html">Lecture
+     2</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/summer2011/Bic-OS-MM-proj3_-_Flash_%28Large%29_-_20110914_12.51.42PM.html">Lecture
+     3</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/summer2011/Bic-OS-MM-proj4_-_Flash_%28Large%29_-_20110914_01.08.13PM.html">Lecture
+     4</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#3366FF;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><span style="color:
+     #003399">C/C++: code for <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/Gaussian.txt">Gaussian
+     function</a></span><u><o:p></o:p></u></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in">Java: Use the <span style="color:windowtext"><a href="http://java.sun.com/javase/6/docs/api/java/util/Random.html#nextGaussian%28%29"><span class="SpellE"><span class="GramE"><span style="mso-bidi-font-weight:bold">nextGaussian</span></span></span><span class="GramE"><span style="mso-bidi-font-weight:bold">(</span></span><span style="mso-bidi-font-weight:bold">)</span></a> </span>method in the Java
+     class <span style="color:windowtext"><a href="http://java.sun.com/javase/6/docs/api/java/util/Random.html"><span class="SpellE"><span style="mso-bidi-font-weight:bold">Java.util.Random</span></span></a></span>
+     to generate a normally distributed variable x with mean 0 and standard
+     deviation 1. Then return the value d*<span class="SpellE">x+a</span>, where <span class="GramE">a and</span> d are the mean and standard deviation, respectively.<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in">Java code to <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/packunpackjava.txt">pack/unpack</a>
+     an integer to/from a byte array<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-list:l6 level1 lfo12;tab-stops:
+     list .5in">On due date, submit: <o:p></o:p></li>
+</ul>
+
+<p class="MsoListParagraphCxSpFirst" style="margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l4 level1 lfo13"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Preliminary document
+<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l4 level1 lfo13"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Final document<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpLast" style="margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l4 level1 lfo13"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">3.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Project Report<o:p></o:p></span></p>
+
+<h3><span style="color:#003399">3. File System<o:p></o:p></span></h3>
+
+<ul type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in">Textbook, pages <span style="mso-bidi-font-size:13.5pt;mso-bidi-font-weight:bold">501-506</span><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/LEC/For-WEB/proj5.pptx">Lecture
+     Notes</a> (PowerPoint)<o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/fall2013/Bic-FS-projA_-_20131021_225510_15.html">Lecture
+     1</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/fall2013/Bic-FS-projB_-_20131021_230657_15.html">Lecture
+     2</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/fall2013/Bic-FS-projC_-_20131021_232824_15.html">Lecture
+     3</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/fall2013/Bic-FS-projD_-_20131021_235110_15.html">Lecture
+     4</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/fall2013/Bic-FS-projE_-_20131022_000106_15.html">Lecture
+     5</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://replay.uci.edu/public/fall2013/Bic-FS-projF_-_20131022_002146_15.html">Lecture
+     6</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#003399;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/FS-Project/FS-shell.html">Shell
+     Specification</a><o:p></o:p></li>
+ <li class="MsoNormal" style="color:#3366FF;mso-margin-top-alt:auto;mso-margin-bottom-alt:
+     auto;mso-list:l6 level1 lfo12;tab-stops:list .5in"><span style="color:
+     #003399"><a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/FS-Project/test-specs.htm">Disk
+     and FS Specification<o:p></o:p></a></span></li>
+ <li class="MsoNormalCxSpMiddle" style="color:#003399;mso-margin-top-alt:auto;
+     mso-margin-bottom-alt:auto;mso-add-space:auto;mso-list:l6 level1 lfo12;
+     tab-stops:list .5in">Sample test case: <span style="mso-bidi-font-weight:
+     bold">If your program reads the following <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/FS-Project/test-sample.txt"><span style="mso-bidi-font-weight:normal">input</span></a> file, it should
+     produce a file that looks something like this: <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/FS-Project/output-sample.txt"><span style="mso-bidi-font-weight:normal">output</span></a></span><b><span style="font-size:13.5pt"><o:p></o:p></span></b></li>
+ <li class="MsoNormalCxSpMiddle" style="color:#003399;mso-margin-top-alt:auto;
+     mso-margin-bottom-alt:auto;mso-add-space:auto;mso-list:l6 level1 lfo12;
+     tab-stops:list .5in">Java code to <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/145B/packunpackjava.txt">pack/unpack</a>
+     an integer to/from a byte array<b><span style="font-size:13.5pt"><o:p></o:p></span></b></li>
+</ul>
+
+<ul style="margin-top:0in" type="disc">
+ <li class="MsoNormal" style="color:#003399;mso-list:l9 level1 lfo10;tab-stops:
+     list .5in">On due date, submit the following to EEE (<a href="http://www.ics.uci.edu/%7Ebic/courses/145B/Misc/dropbox_primer.pdf">how to submit to EEE</a>): <o:p></o:p></li>
+</ul>
+
+<p class="MsoListParagraphCxSpFirst" style="margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level1 lfo14"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">1.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Preliminary document<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpMiddle" style="margin-left:.75in;mso-add-space:
+auto;text-indent:-.25in;mso-list:l8 level1 lfo14"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">2.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Final document<o:p></o:p></span></p>
+
+<p class="MsoListParagraphCxSpLast" style="margin-left:.75in;mso-add-space:auto;
+text-indent:-.25in;mso-list:l8 level1 lfo14"><!--[if !supportLists]--><span style="color:#003399"><span style="mso-list:Ignore">3.<span style="font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><!--[endif]--><span style="color:#003399">Demonstrate
+functionality (time window/place for demos: TBD). See <a href="http://www.ics.uci.edu/%7Ebic/courses/145B/Misc/Protocol%20for%20Project%20Demonstration.pdf">protocol</a><o:p></o:p></span></p>
+
+<div class="MsoNormal" style="text-align:center" align="center"><span style="color:#003399">
+
+<hr size="2" width="100%" align="center">
+
+</span></div>
+
+<p class="MsoNormal" style="margin-left:.5in"><span style="color:#003399">&nbsp; <o:p></o:p></span></p>
+
+</div>
+
+
+
+
+</body></html>
