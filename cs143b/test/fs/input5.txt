@@ -1,0 +1,15 @@
+in
+cr abc
+op abc
+cr xx
+op xx
+wr 1 x 2
+wr 2 z 192
+wr 1 y 64
+sk 1 0
+rd 1 5
+rd 1 5
+sk 1 64
+rd 1 2
+sk 2 191
+rd 2 1

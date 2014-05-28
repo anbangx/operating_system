@@ -1,0 +1,78 @@
+disk initialized
+abc created
+abc opened 1
+1 closed
+abc destroyed
+abc created
+abc opened 1
+xx created
+p created
+xx opened 2
+abc destroyed
+abc created
+abc opened 1
+zz created
+zz opened 3
+p destroyed
+abc xx zz 
+abc created
+abc opened 0
+2 bytes written
+3 bytes written
+position is 0
+xxyyy
+abc created
+abc opened 0
+2 bytes written
+3 bytes written
+position is 0
+xxyy
+yxxy
+x created
+y created
+w created
+x opened 0
+y opened 0
+w opened 0
+10 bytes written
+2 closed
+y opened 2
+yy000
+abc created
+abc opened 0
+xx created
+xx opened 0
+2 bytes written
+182 bytes written
+64 bytes written
+position is 0
+xxyyy
+xxyyy
+position is 64
+position is 191
+z
+abc created
+abc opened 0
+position is 62
+yyyyyyy
+position is 64
+position is 62
+00yyyyy
+abc created
+abc opened 0
+xx created
+xx opened 0
+2 bytes written
+0 bytes written
+64 bytes written
+abc xx abc zz abc x y w abc xx abc abc xx 
+disk saved
+disk restored
+xx opened 1
+abc opened 2
+yyyyy
+position is 64
+xx
+position is 62
+0000000
+abc xx abc zz abc x y w abc xx abc abc xx 

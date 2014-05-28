@@ -1,0 +1,6 @@
+in
+cr abc
+op abc
+wr 1 z 192
+sk 1 191
+rd 1 1

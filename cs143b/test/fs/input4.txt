@@ -1,0 +1,48 @@
+in
+cr abc
+op abc
+cl 1
+de abc
+
+in
+cr abc
+op abc
+cr xx
+cr p
+op xx
+de abc
+cr abc
+op abc
+cr zz
+op zz
+de p
+dr 
+
+in
+cr abc
+op abc
+wr 1 x 2
+wr 1 y 3
+sk 1 0
+rd 1 5
+
+in
+cr abc
+op abc
+wr 1 x 2
+wr 1 y 3
+sk 1 0
+rd 1 4
+rd 1 4
+
+in
+cr x
+cr y
+cr w
+op x
+op y
+op w
+wr 2 x 10
+cl 2
+op y
+rd 1 5

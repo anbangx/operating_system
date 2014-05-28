@@ -26,10 +26,10 @@ public class FileSystem {
 		for (int i = 62; i >= 0; i--) {
 			MASK[i] = MASK[i + 1] << 1;
 		}
-		initOPT();
+		initOFT();
 	}
 
-	public void initOPT() {
+	public void initOFT() {
 		OFT = new OFTEntry[4];
 		for (int i = 0; i < 4; i++) {
 			OFT[i] = new OFTEntry();
@@ -95,6 +95,8 @@ public class FileSystem {
 	}
 
 	public void init() {
+		this.io = new IOSystem();
+		initOFT();
 		// 1. initiate bitmap
 		// file descriptor for directory
 		// directory
@@ -203,6 +205,16 @@ public class FileSystem {
 		// 5. write back the updates to disk
 		io.writeBlock(fdIdx, fdBlock);
 		io.writeBlock(curDirIdx, dirBlock);
+		
+		// 6. free OFT
+		int slotIdx = getSlotIdx(name);
+		
+		for(int i = 1; i < OFT.length; i++){
+			if(OFT[i].index == slotIdx){
+				OFT[i].index = -1;
+				break;
+			}
+		}
 	}
 
 	public int open(String name) {
@@ -313,7 +325,7 @@ public class FileSystem {
 				// 5. read block whichBlock of file into the r/w buffer(read-ahead)
 				int fileLength = fdBlock[slotIdx * 4];
 				int firstDataBlockIdx = fdBlock[slotIdx * 4 + OFT[OPTIdx].whichBlock + 1];
-				OFT[OPTIdx].length = fileLength;
+//				OFT[OPTIdx].length = fileLength;
 				if (firstDataBlockIdx != -1)
 					OFT[OPTIdx].buffer = io.readBlock(firstDataBlockIdx);
 			}
@@ -331,6 +343,8 @@ public class FileSystem {
 			int slotIdx = OFT[OPTIdx].index;
 			// 1. write the old buffer to disk
 			int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
+			if(curDataBlockNum == 3)
+				curDataBlockNum = 2;
 			int oldDataBlockIdx = fdBlock[slotIdx % 4 + curDataBlockNum + 1];
 			io.writeBlock(oldDataBlockIdx, OFT[OPTIdx].buffer);
 
@@ -356,7 +370,7 @@ public class FileSystem {
 		fileOuputStream.close();
 
 		// init OPT
-		initOPT();
+		initOFT();
 	}
 
 	public void restore(String inputPath) throws Exception {

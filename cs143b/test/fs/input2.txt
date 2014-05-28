@@ -1,0 +1,13 @@
+in
+cr abc
+op abc
+cr xx
+cr p
+op xx
+de abc
+cr abc
+op abc
+cr zz
+op zz
+de p
+dr

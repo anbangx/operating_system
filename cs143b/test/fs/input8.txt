@@ -1,0 +1,30 @@
+in
+cr abc
+op abc
+wr 1 z 192
+sk 1 62
+rd 1 7
+sk 1 64
+wr 1 w 3
+sk 1 62
+rd 1 7
+
+in
+cr abc
+op abc
+cr xx
+op xx
+wr 1 x 2
+wr 2 z 192
+wr 1 y 64
+dr
+sv disk.txt
+in disk.txt
+op xx
+op abc
+rd 2 5
+sk 2 64
+rd 1 2
+sk 1 62
+rd 3 7
+dr

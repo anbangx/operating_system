@@ -1,0 +1,7 @@
+in
+cr abc
+op abc
+de abc
+cr abc
+op abc
+dr
