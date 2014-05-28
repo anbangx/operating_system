@@ -1,4 +1,4 @@
-Study Notes for uci course CS143b
+2014 Spring - Study Notes for uci course CS143b
 
 1. Course Website: http://www.ics.uci.edu/~bic/courses/145B/
 
