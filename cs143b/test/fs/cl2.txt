@@ -1,0 +1,9 @@
+in
+cr foo
+op foo
+wr 1 x 60
+cr ABC
+op ABC
+wr 2 y 60
+cl 1
+cl 2

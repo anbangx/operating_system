@@ -11,7 +11,7 @@ public class FileSystem {
 	private static final int DIRECTORY_END_INDEX = 4;
 	private static final int FILE_DESCRIPTOR_START_INDEX = 5;
 	private static final int FILE_DESCRIPTOR_END_INDEX = 10;
-	private static final int MAX_INDEX_WITHIN_BLOCK = 15;
+	private static final int MAX_INDEX_WITHIN_BLOCK = 7;
 	private static final int SLOT_SIZE = 2;
 	private static final int FILE_DESCRIPTOR_SIZE = 4;
 
@@ -50,8 +50,8 @@ public class FileSystem {
 			return "disk restored";
 		} else if (command.equals("cr")) {
 			String name = tokens[1];
-			this.create(name);
-			return name + " created";
+			boolean flag = this.create(name);
+			return flag ? (name + " created") : "error";
 		} else if (command.equals("de")) {
 			String name = tokens[1];
 			this.destroy(name);
@@ -85,7 +85,11 @@ public class FileSystem {
 			String outputPath = tokens[1];
 			this.save(outputPath);
 			return "disk saved";
-		}
+		} else if (command.equals("cl")) {
+			int OPTIdx = Integer.parseInt(tokens[1]);
+			this.close(OPTIdx);
+			return OPTIdx + " closed";
+		} 
 
 		return "";
 	}
@@ -113,7 +117,10 @@ public class FileSystem {
 		block[3] = 4;
 	}
 
-	public void create(String name) {
+	public boolean create(String name) {
+		ArrayList<String> allFiles = getAllFiles();
+		if(allFiles.contains(name))
+			return false;
 		// 1. find a free file descriptor
 		int curBlockIdx = FILE_DESCRIPTOR_START_INDEX;
 		int curReference = 0;
@@ -138,18 +145,18 @@ public class FileSystem {
 		int curSlotIdx = 0; // 1st index {name, index}
 		int[] dirBlock = io.readBlock(curDirIdx);
 		while (curDirIdx <= DIRECTORY_END_INDEX) {
-			if (dirBlock[curSlotIdx + 1] < 0) { // find free
+			if (dirBlock[2 * curSlotIdx + 1] < 0) { // find free
 				// update name and index
-				dirBlock[curSlotIdx] = convertStringToInt(name);
-				dirBlock[curSlotIdx + 1] = (curBlockIdx - FILE_DESCRIPTOR_START_INDEX)
+				dirBlock[2 * curSlotIdx] = convertStringToInt(name);
+				dirBlock[2 * curSlotIdx + 1] = (curBlockIdx - FILE_DESCRIPTOR_START_INDEX)
 						* 4 + curReference / 4;
 				break;
 			}
-			curSlotIdx += SLOT_SIZE;
+			curSlotIdx += 1; //SLOT_SIZE;
 			if (curSlotIdx > MAX_INDEX_WITHIN_BLOCK) {
 				// check next directory block
 				curDirIdx++;
-				dirBlock = io.readBlock(curSlotIdx);
+				dirBlock = io.readBlock(curDirIdx);
 				curSlotIdx = 0;
 			}
 		}
@@ -157,6 +164,8 @@ public class FileSystem {
 		// 3. write back the updates to disk
 		io.writeBlock(curBlockIdx, fdBlock);
 		io.writeBlock(curDirIdx, dirBlock);
+		
+		return true;
 	}
 
 	public void destroy(String name) {
@@ -239,7 +248,7 @@ public class FileSystem {
 		// 2. update file length in descriptor
 		int slotIdx = OFT[OPTIdx].index;
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
-		fdBlock[slotIdx % 4] = OFT[OPTIdx].length;
+		fdBlock[slotIdx * 4] = OFT[OPTIdx].length;
 		int fdIdx = slotIdx / 4 + 5;
 		io.writeBlock(fdIdx, fdBlock);
 		
@@ -389,10 +398,10 @@ public class FileSystem {
 		int[] dirBlock = io.readBlock(curDirIdx);
 		int nameToInt = convertStringToInt(name);
 		while (curDirIdx <= DIRECTORY_END_INDEX) {
-			if (dirBlock[curSlotIdx] == nameToInt) { // find!
+			if (dirBlock[2 * curSlotIdx] == nameToInt) { // find!
 				return curSlotIdx;
 			}
-			curSlotIdx += SLOT_SIZE;
+			curSlotIdx += 1;
 			if (curSlotIdx > MAX_INDEX_WITHIN_BLOCK) {
 				// check next directory block
 				curDirIdx++;
@@ -427,7 +436,7 @@ public class FileSystem {
 	public int getDataBlockIdxFromOPTEntry(OFTEntry entry, int whickBlock) {
 		int slotIdx = entry.index;
 		int[] fdBlock = getFDBlockFromSlotIdx(slotIdx);
-		int firstDataBlockIdx = fdBlock[slotIdx % 4 + whickBlock + 1];
+		int firstDataBlockIdx = fdBlock[slotIdx * 4 + whickBlock + 1];
 		return firstDataBlockIdx;
 	}
 
