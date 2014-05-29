@@ -4,6 +4,6 @@
 
 2. Course Notes/PPT is in folder “doc”
 
-3. Preliminary Document, Report/Demo and Final Document is also in folder “doc”.
+3. Preliminary Document, Report/Demo and Final Document is also in folder “documents”.
 
 4. Test Case is in folder “test”.
