@@ -198,6 +198,13 @@ public class KThread {
 
 		Machine.autoGrader().finishingCurrentThread();
 
+		ThreadQueue joinQueue = currentThread.joinQueue;
+		if(joinQueue != null){
+			KThread thread = null;
+			while((thread = joinQueue.nextThread()) != null)
+				thread.ready();
+		}
+			
 		Lib.assertTrue(toBeDestroyed == null);
 		toBeDestroyed = currentThread;
 
@@ -284,7 +291,18 @@ public class KThread {
 		Lib.debug(dbgThread, "Joining to thread: " + toString());
 
 		Lib.assertTrue(this != currentThread);
-
+		
+		boolean intStatus = Machine.interrupt().disable();
+		
+		if(joinQueue == null){
+			joinQueue = ThreadedKernel.scheduler.newThreadQueue(true);
+			joinQueue.acquire(this);
+		}
+		
+		joinQueue.waitForAccess(currentThread);
+		currentThread.sleep();
+		
+		Machine.interrupt().restore(intStatus);
 	}
 
 	/**
@@ -463,6 +481,8 @@ public class KThread {
 	private static KThread currentThread = null;
 
 	private static KThread toBeDestroyed = null;
+	
+	private ThreadQueue joinQueue = null;
 
 	private static KThread idleThread = null;
 }
